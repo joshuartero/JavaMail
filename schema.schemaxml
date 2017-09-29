@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schemadesigner version="6.5">
+<source>
+<database charset="latin1" collation="latin1_swedish_ci">bd_ccm</database>
+</source>
+<canvas zoom="100">
+<tables>
+<table name="articulo" view="colnames">
+<left>651</left>
+<top>181</top>
+<width>156</width>
+<height>158</height>
+<sql_create_table>CREATE TABLE `articulo` (
+  `CODIGO` char(11) NOT NULL,
+  `DESCRIPCION` varchar(60) NOT NULL,
+  `IDTIPOARTICULO` char(4) NOT NULL,
+  PRIMARY KEY (`CODIGO`),
+  KEY `FK_articulo` (`IDTIPOARTICULO`),
+  CONSTRAINT `FK_articulo` FOREIGN KEY (`IDTIPOARTICULO`) REFERENCES `tipo_articulo` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=latin1</sql_create_table>
+</table>
+<table name="nota_salida" view="colnames">
+<left>359</left>
+<top>206</top>
+<width>163</width>
+<height>224</height>
+<sql_create_table>CREATE TABLE `nota_salida` (
+  `CODIGO` char(11) NOT NULL,
+  `ENTREGADO` varchar(30) NOT NULL,
+  `RECIBIDO` varchar(30) NOT NULL,
+  `FECHA` date NOT NULL,
+  `IDAREA` char(3) NOT NULL,
+  `CODMATERIAL` char(11) NOT NULL,
+  `CANTIDAD` int(11) NOT NULL,
+  PRIMARY KEY (`CODIGO`),
+  KEY `FK_area_nota_salida` (`IDAREA`),
+  KEY `FK_nota_salida_articulo` (`CODMATERIAL`),
+  CONSTRAINT `FK_area_nota_salida` FOREIGN KEY (`IDAREA`) REFERENCES `area` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `FK_nota_salida_articulo` FOREIGN KEY (`CODMATERIAL`) REFERENCES `articulo` (`CODIGO`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=latin1</sql_create_table>
+</table>
+<table name="TIPO_ARTICULO" view="colnames">
+<left>910</left>
+<top>159</top>
+<width>115</width>
+<height>112</height>
+<sql_create_table>CREATE TABLE `tipo_articulo` (
+  `ID` char(4) NOT NULL,
+  `TIPO` varchar(20) NOT NULL,
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1</sql_create_table>
+</table>
+<table name="AREA" view="colnames">
+<left>165</left>
+<top>320</top>
+<width>77</width>
+<height>112</height>
+<sql_create_table>CREATE TABLE `area` (
+  `ID` char(3) NOT NULL,
+  `AREA` varchar(30) NOT NULL,
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1</sql_create_table>
+</table>
+</tables>
+</canvas>
+</schemadesigner>
