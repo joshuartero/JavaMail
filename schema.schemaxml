@@ -5,11 +5,22 @@
 </source>
 <canvas zoom="100">
 <tables>
+<table name="area" view="colnames">
+<left>537</left>
+<top>219</top>
+<width>77</width>
+<height>88</height>
+<sql_create_table>CREATE TABLE `area` (
+  `ID` char(3) NOT NULL,
+  `AREA` varchar(30) NOT NULL,
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1</sql_create_table>
+</table>
 <table name="articulo" view="colnames">
-<left>651</left>
-<top>181</top>
-<width>156</width>
-<height>158</height>
+<left>794</left>
+<top>190</top>
+<width>148</width>
+<height>107</height>
 <sql_create_table>CREATE TABLE `articulo` (
   `CODIGO` char(11) NOT NULL,
   `DESCRIPCION` varchar(60) NOT NULL,
@@ -20,10 +31,10 @@
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1</sql_create_table>
 </table>
 <table name="nota_salida" view="colnames">
-<left>359</left>
-<top>206</top>
-<width>163</width>
-<height>224</height>
+<left>639</left>
+<top>190</top>
+<width>131</width>
+<height>188</height>
 <sql_create_table>CREATE TABLE `nota_salida` (
   `CODIGO` char(11) NOT NULL,
   `ENTREGADO` varchar(30) NOT NULL,
@@ -39,26 +50,86 @@
   CONSTRAINT `FK_nota_salida_articulo` FOREIGN KEY (`CODMATERIAL`) REFERENCES `articulo` (`CODIGO`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1</sql_create_table>
 </table>
-<table name="TIPO_ARTICULO" view="colnames">
-<left>910</left>
-<top>159</top>
-<width>115</width>
-<height>112</height>
+<table name="orden_mantenimiento" view="colnames">
+<left>938</left>
+<top>308</top>
+<width>158</width>
+<height>75</height>
+<sql_create_table>CREATE TABLE `orden_mantenimiento` (
+  `NRO` char(10) NOT NULL,
+  PRIMARY KEY (`NRO`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1</sql_create_table>
+</table>
+<table name="tipo_articulo" view="colnames">
+<left>967</left>
+<top>185</top>
+<width>122</width>
+<height>85</height>
 <sql_create_table>CREATE TABLE `tipo_articulo` (
   `ID` char(4) NOT NULL,
   `TIPO` varchar(20) NOT NULL,
   PRIMARY KEY (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1</sql_create_table>
 </table>
-<table name="AREA" view="colnames">
-<left>165</left>
-<top>320</top>
-<width>77</width>
-<height>112</height>
-<sql_create_table>CREATE TABLE `area` (
-  `ID` char(3) NOT NULL,
-  `AREA` varchar(30) NOT NULL,
-  PRIMARY KEY (`ID`)
+<table name="HERRAMIENTA" view="colnames">
+<left>75</left>
+<top>131</top>
+<width>129</width>
+<height>158</height>
+<sql_create_table>CREATE TABLE `herramienta` (
+  `CODIGO` char(10) NOT NULL,
+  `HERRAMIENTA` varchar(40) NOT NULL,
+  `MARCA` varchar(20) DEFAULT NULL,
+  `MODELO` varchar(20) DEFAULT NULL,
+  `SERIE` varchar(20) DEFAULT NULL,
+  PRIMARY KEY (`CODIGO`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1</sql_create_table>
+</table>
+<table name="CARGO" view="colnames">
+<left>228</left>
+<top>214</top>
+<width>156</width>
+<height>141</height>
+<sql_create_table>CREATE TABLE `cargo` (
+  `CODTRABAJADOR` char(10) NOT NULL,
+  `CODHERRAMIENTA` char(10) NOT NULL,
+  `CODAREA` char(10) NOT NULL,
+  `FECHA` date NOT NULL,
+  KEY `CODTRABAJADOR` (`CODTRABAJADOR`),
+  KEY `CODHERRAMIENTA` (`CODHERRAMIENTA`),
+  CONSTRAINT `cargo_ibfk_1` FOREIGN KEY (`CODTRABAJADOR`) REFERENCES `trabajador` (`CODIGO`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `cargo_ibfk_2` FOREIGN KEY (`CODHERRAMIENTA`) REFERENCES `herramienta` (`CODIGO`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=latin1</sql_create_table>
+</table>
+<table name="TRABAJADOR" view="colnames">
+<left>408</left>
+<top>287</top>
+<width>105</width>
+<height>124</height>
+<sql_create_table>CREATE TABLE `trabajador` (
+  `CODIGO` char(10) NOT NULL,
+  `DNI` char(8) NOT NULL,
+  `CARGO` varchar(30) NOT NULL,
+  `IDAREA` char(10) NOT NULL,
+  PRIMARY KEY (`CODIGO`),
+  KEY `IDAREA` (`IDAREA`),
+  KEY `DNI` (`DNI`),
+  CONSTRAINT `trabajador_ibfk_1` FOREIGN KEY (`IDAREA`) REFERENCES `area` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `trabajador_ibfk_2` FOREIGN KEY (`DNI`) REFERENCES `persona` (`DNI`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=latin1</sql_create_table>
+</table>
+<table name="PERSONA" view="colnames">
+<left>226</left>
+<top>360</top>
+<width>159</width>
+<height>158</height>
+<sql_create_table>CREATE TABLE `persona` (
+  `DNI` char(8) NOT NULL,
+  `NOMBRES` varchar(30) NOT NULL,
+  `APELLIDOP` varchar(30) NOT NULL,
+  `APELLIDOM` varchar(30) NOT NULL,
+  `FECHANACIMIENTO` date NOT NULL,
+  PRIMARY KEY (`DNI`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1</sql_create_table>
 </table>
 </tables>

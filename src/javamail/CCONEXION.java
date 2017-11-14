@@ -20,12 +20,12 @@ public class CCONEXION
     public CCONEXION()
     {   try
         {   Class.forName("com.mysql.jdbc.Driver");
-            servidor = "mysql.hostinger.es";
-            usuarioDB="u662755134_scs";
-            passwordDB="gunjoshuas"; 
+            servidor = "jdbc:mysql://localhost:3306/bd_ccm?zeroDateTimeBehavior=convertToNull";
+            usuarioDB="root";
+            passwordDB=""; 
             con= DriverManager.getConnection(servidor,usuarioDB,passwordDB); 
             st = con.createStatement();
-            JOptionPane.showMessageDialog(null,"EXITO EN LA CONEXION");
+//            JOptionPane.showMessageDialog(null,"EXITO EN LA CONEXION");
         }
         catch(SQLException | ClassNotFoundException ex)
         {   JOptionPane.showMessageDialog(null, ex, "ERROR EN LA CONEXION CON LA BD"+ex.getMessage(), JOptionPane.ERROR_MESSAGE);

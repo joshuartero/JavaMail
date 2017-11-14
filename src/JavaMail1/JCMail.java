@@ -1,4 +1,4 @@
-package javamail;
+package JavaMail1;
 
 import java.util.Date;
 import javax.mail.Message;
@@ -27,7 +27,7 @@ public class JCMail {
     private InternetAddress[] addressTo;
     private String Subject = "";//titulo del mensaje
     private String MessageMail = "";//contenido del mensaje
-    public String[] destinatarios=new String[3];
+    String[] destinatarios=new String[3];
 
     public JCMail(){}
 

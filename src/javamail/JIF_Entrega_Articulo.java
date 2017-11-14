@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package javamail;
 
 import java.sql.Connection;
@@ -30,7 +25,7 @@ public class JIF_Entrega_Articulo extends javax.swing.JInternalFrame {
     public JIF_Entrega_Articulo() {
         initComponents();
         
-        cargarArticulos();
+//        cargarArticulos();
         setNotaSalida();
         setFecha();
     }

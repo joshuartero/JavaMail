@@ -19,6 +19,8 @@ public class MDI_PRINCIPAL extends javax.swing.JFrame {
         jMenu1 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenuItem2 = new javax.swing.JMenuItem();
+        jMenu2 = new javax.swing.JMenu();
+        jMenuItem3 = new javax.swing.JMenuItem();
         fileMenu = new javax.swing.JMenu();
         openMenuItem = new javax.swing.JMenuItem();
         saveMenuItem = new javax.swing.JMenuItem();
@@ -35,9 +37,9 @@ public class MDI_PRINCIPAL extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jMenu1.setText("ARTICULO");
+        jMenu1.setText("Articulo");
 
-        jMenuItem1.setText("REGISTRO");
+        jMenuItem1.setText("Registro");
         jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem1ActionPerformed(evt);
@@ -45,7 +47,7 @@ public class MDI_PRINCIPAL extends javax.swing.JFrame {
         });
         jMenu1.add(jMenuItem1);
 
-        jMenuItem2.setText("ENTREGA");
+        jMenuItem2.setText("Entrega");
         jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem2ActionPerformed(evt);
@@ -54,6 +56,18 @@ public class MDI_PRINCIPAL extends javax.swing.JFrame {
         jMenu1.add(jMenuItem2);
 
         menuBar.add(jMenu1);
+
+        jMenu2.setText("Personal");
+
+        jMenuItem3.setText("Registro");
+        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem3ActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jMenuItem3);
+
+        menuBar.add(jMenu2);
 
         fileMenu.setMnemonic('f');
         fileMenu.setText("File");
@@ -147,6 +161,10 @@ public class MDI_PRINCIPAL extends javax.swing.JFrame {
         desktopPane.add(jifea);
         jifea.setVisible(true);
     }//GEN-LAST:event_jMenuItem2ActionPerformed
+
+    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+        
+    }//GEN-LAST:event_jMenuItem3ActionPerformed
    
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -192,8 +210,10 @@ public class MDI_PRINCIPAL extends javax.swing.JFrame {
     private javax.swing.JMenu fileMenu;
     private javax.swing.JMenu helpMenu;
     private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuBar menuBar;
     private javax.swing.JMenuItem openMenuItem;
     private javax.swing.JMenuItem pasteMenuItem;
