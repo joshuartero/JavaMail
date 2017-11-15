@@ -1,8 +1,5 @@
 package javamail;
 
-import java.awt.Frame;
-import javax.swing.JOptionPane;
-
 /**
  *
  * @author Joshua
@@ -10,9 +7,14 @@ import javax.swing.JOptionPane;
 public class JIF_Registrar_Trabajador extends javax.swing.JInternalFrame {
 
     public JIF_Registrar_Trabajador() {
-        initComponents();        
+        initComponents();
+        mostrarCodigo();
     }
 
+    void mostrarCodigo()
+    {   
+    }
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -34,6 +36,8 @@ public class JIF_Registrar_Trabajador extends javax.swing.JInternalFrame {
         setTitle("REGISTRAR TRABAJADOR");
 
         jLabel1.setText("Codigo");
+
+        jTextField1.setEnabled(false);
 
         jLabel2.setText("D.N.I.");
 
@@ -110,8 +114,7 @@ public class JIF_Registrar_Trabajador extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        Frame f=JOptionPane.getFrameForComponent(this);
-        JD_Buscar_DNI jdbdni=new JD_Buscar_DNI(f,true);
+        JD_Buscar_DNI jdbdni=new JD_Buscar_DNI(this,true);
         jdbdni.setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -124,7 +127,7 @@ public class JIF_Registrar_Trabajador extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
+    public static javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;
     private javax.swing.JTextField jTextField4;
     // End of variables declaration//GEN-END:variables

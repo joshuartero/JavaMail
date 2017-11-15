@@ -12,8 +12,8 @@ import javax.swing.JOptionPane;
  */
 public class JIF_Registro_Articulo extends javax.swing.JInternalFrame {
 
-    CCONEXION conexion=new CCONEXION();
-    Connection con=conexion.getCon();
+    cConexion conexion=new cConexion();
+    Connection con=conexion.getConnection();
     Statement st; ResultSet rs;
     
     public JIF_Registro_Articulo() {

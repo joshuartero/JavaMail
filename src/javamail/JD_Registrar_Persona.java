@@ -1,5 +1,11 @@
 package javamail;
 
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.Calendar;
+import java.util.Date;
 import javax.swing.JOptionPane;
 
 /**
@@ -8,7 +14,9 @@ import javax.swing.JOptionPane;
  */
 public class JD_Registrar_Persona extends javax.swing.JDialog {
     
-    
+    cConexion conexion=new cConexion();
+    Connection con=conexion.getConnection();
+    Statement st;   ResultSet rs;
     
     public JD_Registrar_Persona(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
@@ -44,14 +52,6 @@ public class JD_Registrar_Persona extends javax.swing.JDialog {
         jLabel4.setText("Apellido M.");
 
         jLabel5.setText("Fecha Nac.");
-
-        jTextField1.setText("44182117");
-
-        jTextField2.setText("Joshua");
-
-        jTextField3.setText("Ormachea");
-
-        jTextField4.setText("Del Aguila");
 
         jButton1.setText("Registrar");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -170,7 +170,25 @@ public class JD_Registrar_Persona extends javax.swing.JDialog {
     }
     
     void registrar()
-    {           
+    {   try
+        {   st=con.createStatement();
+            st.executeUpdate("INSERT INTO Persona VALUES ('"+jTextField1.getText()+"','"+
+                    jTextField2.getText()+"','"+jTextField3.getText()+"','"+jTextField4.getText()+"','"+capturarFecha()+"');");
+            jTextField1.setText("");
+            jTextField2.setText("");
+            jTextField3.setText("");
+            jTextField4.setText("");
+            dateChooserCombo1.setCurrent(null);
+            JOptionPane.showMessageDialog(this, "Persona Registrada !");
+        }
+        catch(SQLException e){  JOptionPane.showMessageDialog(this, "Error Debido a : "+e.toString());}
+    }
+    
+    String capturarFecha()
+    {   int año = dateChooserCombo1.getCurrent().get(Calendar.YEAR);
+        int mes = dateChooserCombo1.getCurrent().get(Calendar.MONTH) + 1;
+        int dia = dateChooserCombo1.getCurrent().get(Calendar.DAY_OF_MONTH);
+        return año+"-"+mes+"-"+dia;
     }
     
     public static void main(String args[]) {

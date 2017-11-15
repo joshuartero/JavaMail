@@ -6,10 +6,10 @@
 <canvas zoom="100">
 <tables>
 <table name="area" view="colnames">
-<left>537</left>
+<left>524</left>
 <top>219</top>
 <width>77</width>
-<height>88</height>
+<height>105</height>
 <sql_create_table>CREATE TABLE `area` (
   `ID` char(3) NOT NULL,
   `AREA` varchar(30) NOT NULL,
@@ -17,10 +17,10 @@
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1</sql_create_table>
 </table>
 <table name="articulo" view="colnames">
-<left>794</left>
-<top>190</top>
-<width>148</width>
-<height>107</height>
+<left>789</left>
+<top>191</top>
+<width>155</width>
+<height>131</height>
 <sql_create_table>CREATE TABLE `articulo` (
   `CODIGO` char(11) NOT NULL,
   `DESCRIPCION` varchar(60) NOT NULL,
@@ -31,10 +31,10 @@
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1</sql_create_table>
 </table>
 <table name="nota_salida" view="colnames">
-<left>639</left>
-<top>190</top>
-<width>131</width>
-<height>188</height>
+<left>622</left>
+<top>189</top>
+<width>145</width>
+<height>199</height>
 <sql_create_table>CREATE TABLE `nota_salida` (
   `CODIGO` char(11) NOT NULL,
   `ENTREGADO` varchar(30) NOT NULL,
@@ -51,8 +51,8 @@
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1</sql_create_table>
 </table>
 <table name="orden_mantenimiento" view="colnames">
-<left>938</left>
-<top>308</top>
+<left>975</left>
+<top>301</top>
 <width>158</width>
 <height>75</height>
 <sql_create_table>CREATE TABLE `orden_mantenimiento` (
@@ -72,9 +72,9 @@
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1</sql_create_table>
 </table>
 <table name="HERRAMIENTA" view="colnames">
-<left>75</left>
-<top>131</top>
-<width>129</width>
+<left>13</left>
+<top>140</top>
+<width>157</width>
 <height>158</height>
 <sql_create_table>CREATE TABLE `herramienta` (
   `CODIGO` char(10) NOT NULL,
@@ -86,28 +86,28 @@
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1</sql_create_table>
 </table>
 <table name="CARGO" view="colnames">
-<left>228</left>
-<top>214</top>
+<left>191</left>
+<top>208</top>
 <width>156</width>
 <height>141</height>
 <sql_create_table>CREATE TABLE `cargo` (
-  `CODTRABAJADOR` char(10) NOT NULL,
+  `CODTRABAJADOR` char(4) NOT NULL,
   `CODHERRAMIENTA` char(10) NOT NULL,
   `CODAREA` char(10) NOT NULL,
   `FECHA` date NOT NULL,
-  KEY `CODTRABAJADOR` (`CODTRABAJADOR`),
   KEY `CODHERRAMIENTA` (`CODHERRAMIENTA`),
-  CONSTRAINT `cargo_ibfk_1` FOREIGN KEY (`CODTRABAJADOR`) REFERENCES `trabajador` (`CODIGO`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `cargo_ibfk_2` FOREIGN KEY (`CODHERRAMIENTA`) REFERENCES `herramienta` (`CODIGO`) ON DELETE CASCADE ON UPDATE CASCADE
+  KEY `CODTRABAJADOR` (`CODTRABAJADOR`),
+  CONSTRAINT `cargo_ibfk_2` FOREIGN KEY (`CODHERRAMIENTA`) REFERENCES `herramienta` (`CODIGO`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `cargo_ibfk_3` FOREIGN KEY (`CODTRABAJADOR`) REFERENCES `trabajador` (`CODIGO`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1</sql_create_table>
 </table>
 <table name="TRABAJADOR" view="colnames">
-<left>408</left>
-<top>287</top>
-<width>105</width>
+<left>370</left>
+<top>285</top>
+<width>132</width>
 <height>124</height>
 <sql_create_table>CREATE TABLE `trabajador` (
-  `CODIGO` char(10) NOT NULL,
+  `CODIGO` char(4) NOT NULL,
   `DNI` char(8) NOT NULL,
   `CARGO` varchar(30) NOT NULL,
   `IDAREA` char(10) NOT NULL,
@@ -119,10 +119,10 @@
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1</sql_create_table>
 </table>
 <table name="PERSONA" view="colnames">
-<left>226</left>
-<top>360</top>
-<width>159</width>
-<height>158</height>
+<left>181</left>
+<top>369</top>
+<width>168</width>
+<height>175</height>
 <sql_create_table>CREATE TABLE `persona` (
   `DNI` char(8) NOT NULL,
   `NOMBRES` varchar(30) NOT NULL,

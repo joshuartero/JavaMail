@@ -18,8 +18,8 @@ public class JIF_Entrega_Articulo extends javax.swing.JInternalFrame {
     JCMail mail = new JCMail();
     DefaultListModel modelo=new DefaultListModel();
     String message;
-    CCONEXION conexion=new CCONEXION();
-    Connection con=conexion.getCon();
+    cConexion conexion=new cConexion();
+    Connection con=conexion.getConnection();
     Statement st; ResultSet rs;
     
     public JIF_Entrega_Articulo() {
