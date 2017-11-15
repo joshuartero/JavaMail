@@ -1,18 +1,35 @@
 package javamail;
 
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Joshua
  */
 public class JIF_Registrar_Trabajador extends javax.swing.JInternalFrame {
-
+    
+    cConexion conexion=new cConexion();
+    Connection con=conexion.getConnection();
+    Statement st;   ResultSet rs;
+    
     public JIF_Registrar_Trabajador() {
         initComponents();
         mostrarCodigo();
     }
 
     void mostrarCodigo()
-    {   
+    {   try
+        {   st=con.createStatement();
+            rs=st.executeQuery("SELECT Codigo from Trabajador order by Codigo asc limit 1;");
+            if(rs.next())
+                jTextField1.setText(""+ (Integer.parseInt(rs.getString(1))+1) );
+            else jTextField1.setText("8001");
+        }
+        catch(SQLException e){  JOptionPane.showMessageDialog(this, "Error Debido a : "+e.toString());}
     }
     
     @SuppressWarnings("unchecked")
@@ -84,7 +101,7 @@ public class JIF_Registrar_Trabajador extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jButton1)
                     .addComponent(jButton2))
-                .addContainerGap(123, Short.MAX_VALUE))
+                .addContainerGap(20, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -107,15 +124,15 @@ public class JIF_Registrar_Trabajador extends javax.swing.JInternalFrame {
                     .addComponent(jLabel4)
                     .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton2))
-                .addContainerGap(163, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        JD_Buscar_DNI jdbdni=new JD_Buscar_DNI(this,true);
-        jdbdni.setVisible(true);
+//        JD_Buscar_DNI jdbdni=new JD_Buscar_DNI(this,true);
+//        jdbdni.setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
 
 

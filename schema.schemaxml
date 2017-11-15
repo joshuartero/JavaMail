@@ -9,7 +9,7 @@
 <left>524</left>
 <top>219</top>
 <width>77</width>
-<height>105</height>
+<height>109</height>
 <sql_create_table>CREATE TABLE `area` (
   `ID` char(3) NOT NULL,
   `AREA` varchar(30) NOT NULL,
@@ -105,17 +105,19 @@
 <left>370</left>
 <top>285</top>
 <width>132</width>
-<height>124</height>
+<height>146</height>
 <sql_create_table>CREATE TABLE `trabajador` (
   `CODIGO` char(4) NOT NULL,
   `DNI` char(8) NOT NULL,
-  `CARGO` varchar(30) NOT NULL,
   `IDAREA` char(10) NOT NULL,
+  `IDPUESTO` char(3) NOT NULL,
   PRIMARY KEY (`CODIGO`),
   KEY `IDAREA` (`IDAREA`),
   KEY `DNI` (`DNI`),
+  KEY `IDPUESTO` (`IDPUESTO`),
   CONSTRAINT `trabajador_ibfk_1` FOREIGN KEY (`IDAREA`) REFERENCES `area` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `trabajador_ibfk_2` FOREIGN KEY (`DNI`) REFERENCES `persona` (`DNI`) ON DELETE CASCADE ON UPDATE CASCADE
+  CONSTRAINT `trabajador_ibfk_2` FOREIGN KEY (`DNI`) REFERENCES `persona` (`DNI`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `trabajador_ibfk_3` FOREIGN KEY (`IDPUESTO`) REFERENCES `puesto` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1</sql_create_table>
 </table>
 <table name="PERSONA" view="colnames">
@@ -130,6 +132,17 @@
   `APELLIDOM` varchar(30) NOT NULL,
   `FECHANACIMIENTO` date NOT NULL,
   PRIMARY KEY (`DNI`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1</sql_create_table>
+</table>
+<table name="PUESTO" view="colnames">
+<left>523</left>
+<top>420</top>
+<width>107</width>
+<height>122</height>
+<sql_create_table>CREATE TABLE `puesto` (
+  `ID` char(3) NOT NULL,
+  `PUESTO` varchar(30) NOT NULL,
+  PRIMARY KEY (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1</sql_create_table>
 </table>
 </tables>

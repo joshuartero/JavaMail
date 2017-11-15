@@ -12,7 +12,7 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author Joshua
  */
-public class JD_Buscar_DNI extends javax.swing.JDialog {
+public class JD_Buscar_Area extends javax.swing.JDialog {
     
     cConexion conexion=new cConexion();
     Connection con=conexion.getConnection();
@@ -20,21 +20,21 @@ public class JD_Buscar_DNI extends javax.swing.JDialog {
     DefaultTableModel modelo;
     JD_Registrar_Trabajador jdrt;
     
-    public JD_Buscar_DNI(JD_Registrar_Trabajador jdrt, boolean modal) {
+    public JD_Buscar_Area(JD_Registrar_Trabajador jdrt, boolean modal) {
         super(jdrt, modal);
         this.jdrt=jdrt;
         initComponents();
         setLocationRelativeTo(this);
-        listarPersonas();
+        listarPuestos();
     }
 
-    void listarPersonas()
+    void listarPuestos()
     {   try
         {   st=con.createStatement();
-            rs=st.executeQuery("SELECT * FROM Persona");
+            rs=st.executeQuery("SELECT * FROM Area");
             modelo=(DefaultTableModel) jTable1.getModel();
             while(rs.next())
-            {   Object rowData[]={rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5)};
+            {   Object rowData[]={rs.getString(1), rs.getString(2)};
                 modelo.addRow(rowData);
             }
         }
@@ -49,24 +49,19 @@ public class JD_Buscar_DNI extends javax.swing.JDialog {
         jTextField1 = new javax.swing.JTextField(8);
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
+        jButton4 = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("LISTA DE PERSONAS");
+        setTitle("BUSCAR AREA");
 
-        jLabel1.setText("D.N.I.");
+        jLabel1.setText("Puesto");
 
         jTextField1.addCaretListener(new javax.swing.event.CaretListener() {
             public void caretUpdate(javax.swing.event.CaretEvent evt) {
                 jTextField1CaretUpdate(evt);
-            }
-        });
-        jTextField1.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                jTextField1KeyTyped(evt);
             }
         });
 
@@ -75,11 +70,11 @@ public class JD_Buscar_DNI extends javax.swing.JDialog {
 
             },
             new String [] {
-                "D.N.I.", "Nombres", "Apellido P", "ApellidoM", "Fecha Nac."
+                "ID", "Area"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
+                false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -93,12 +88,15 @@ public class JD_Buscar_DNI extends javax.swing.JDialog {
         });
         jScrollPane1.setViewportView(jTable1);
         if (jTable1.getColumnModel().getColumnCount() > 0) {
-            jTable1.getColumnModel().getColumn(0).setPreferredWidth(100);
-            jTable1.getColumnModel().getColumn(1).setPreferredWidth(200);
-            jTable1.getColumnModel().getColumn(2).setPreferredWidth(200);
-            jTable1.getColumnModel().getColumn(3).setPreferredWidth(200);
-            jTable1.getColumnModel().getColumn(4).setPreferredWidth(200);
+            jTable1.getColumnModel().getColumn(0).setMaxWidth(200);
         }
+
+        jButton4.setText("Elegir");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
 
         jButton1.setText("Registrar");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -111,21 +109,13 @@ public class JD_Buscar_DNI extends javax.swing.JDialog {
 
         jButton3.setText("Eliminar");
 
-        jButton4.setText("Elegir");
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 600, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -137,9 +127,9 @@ public class JD_Buscar_DNI extends javax.swing.JDialog {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton3)
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
+                        .addComponent(jButton3))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -162,54 +152,46 @@ public class JD_Buscar_DNI extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        Frame f=JOptionPane.getFrameForComponent(this);
-        JD_Registrar_Persona jdrp=new JD_Registrar_Persona(f,true);
-        jdrp.setVisible(true);
-        if(jdrp.isVisible()==false)
-        {   limpiarTabla();
-            listarPersonas();
-        }
-    }//GEN-LAST:event_jButton1ActionPerformed
-
     private void jTextField1CaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_jTextField1CaretUpdate
         try
-        {   rs=st.executeQuery("SELECT * FROM Persona WHERE DNI LIKE '%"+jTextField1.getText()+"%'");
+        {   rs=st.executeQuery("SELECT * FROM Area WHERE Area LIKE '%"+jTextField1.getText()+"%'");
             limpiarTabla();
             modelo=(DefaultTableModel) jTable1.getModel();
             while(rs.next())
-            {   Object rowData[]={rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5)};
+            {   Object rowData[]={rs.getString(1), rs.getString(2)};
                 modelo.addRow(rowData);
             }
         }
         catch(SQLException e)   {   JOptionPane.showMessageDialog(this,"Error debido a: "+e.toString());}
     }//GEN-LAST:event_jTextField1CaretUpdate
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        dispose();
-        jdrt.jTextField2.setText(""+jTable1.getValueAt(jTable1.getSelectedRow(), 0));
-    }//GEN-LAST:event_jButton4ActionPerformed
-
-    private void jTextField1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField1KeyTyped
-        if (jTextField1.getText().length()==8)
-            evt.consume();
-        char caracter = evt.getKeyChar();
-        if( ((caracter < '0') || (caracter > '9')) && (caracter != '\b' /*corresponde a BACK_SPACE*/))
-            evt.consume();         
-    }//GEN-LAST:event_jTextField1KeyTyped
-
-    private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
-        if(evt.getClickCount()==2)
-        {   dispose();
-            jdrt.jTextField2.setText(""+jTable1.getValueAt(jTable1.getSelectedRow(), 0));
-        }
-    }//GEN-LAST:event_jTable1MouseClicked
-    
     void limpiarTabla()
     {   int a = jTable1.getRowCount()-1;
         for (int i = a; i >= 0; i--)           
             modelo.removeRow(jTable1.getRowCount()-1);        
-    }    
+    } 
+    
+    private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
+        if(evt.getClickCount()==2)
+        {   dispose();
+            jdrt.jTextField4.setText(""+jTable1.getValueAt(jTable1.getSelectedRow(), 1));
+        }
+    }//GEN-LAST:event_jTable1MouseClicked
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        dispose();
+        jdrt.jTextField4.setText(""+jTable1.getValueAt(jTable1.getSelectedRow(), 1));
+    }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        Frame f=JOptionPane.getFrameForComponent(this);
+        JD_Registrar_Area jdra=new JD_Registrar_Area(f,true);
+        jdra.setVisible(true);
+        if(jdra.isVisible()==false)
+        {   limpiarTabla();
+            listarPuestos();
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;

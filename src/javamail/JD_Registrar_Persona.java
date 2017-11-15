@@ -5,7 +5,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Calendar;
-import java.util.Date;
 import javax.swing.JOptionPane;
 
 /**
@@ -42,6 +41,7 @@ public class JD_Registrar_Persona extends javax.swing.JDialog {
         jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("REGISTRAR PERSONA");
 
         jLabel1.setText("D.N.I.");
 
@@ -180,6 +180,7 @@ public class JD_Registrar_Persona extends javax.swing.JDialog {
             jTextField4.setText("");
             dateChooserCombo1.setCurrent(null);
             JOptionPane.showMessageDialog(this, "Persona Registrada !");
+            dispose();
         }
         catch(SQLException e){  JOptionPane.showMessageDialog(this, "Error Debido a : "+e.toString());}
     }
