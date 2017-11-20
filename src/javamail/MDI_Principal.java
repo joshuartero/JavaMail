@@ -8,7 +8,12 @@ public class MDI_Principal extends javax.swing.JFrame {
 
     public MDI_Principal() {
         initComponents();
-        this.setExtendedState(MAXIMIZED_BOTH);
+//        this.setExtendedState(MAXIMIZED_BOTH);
+        this.setLocationRelativeTo(this);
+        
+        JIF_Entrega_Articulo jifea=new JIF_Entrega_Articulo();
+        desktopPane.add(jifea);
+        jifea.setVisible(true);
     }
 
     @SuppressWarnings("unchecked")
@@ -17,9 +22,18 @@ public class MDI_Principal extends javax.swing.JFrame {
 
         desktopPane = new javax.swing.JDesktopPane();
         menuBar = new javax.swing.JMenuBar();
+        jMenu3 = new javax.swing.JMenu();
+        jMenu4 = new javax.swing.JMenu();
+        jMenu5 = new javax.swing.JMenu();
+        jMenu6 = new javax.swing.JMenu();
+        jMenu7 = new javax.swing.JMenu();
+        jMenu8 = new javax.swing.JMenu();
+        jMenu9 = new javax.swing.JMenu();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
-        jMenuItem2 = new javax.swing.JMenuItem();
+        jMenu10 = new javax.swing.JMenu();
+        jMenuItem4 = new javax.swing.JMenuItem();
+        jMenuItem5 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         jMenuItem3 = new javax.swing.JMenuItem();
         fileMenu = new javax.swing.JMenu();
@@ -38,7 +52,28 @@ public class MDI_Principal extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jMenu1.setText("Articulo");
+        jMenu3.setText("Orden de Mantenimiento");
+        menuBar.add(jMenu3);
+
+        jMenu4.setText("Areas");
+        menuBar.add(jMenu4);
+
+        jMenu5.setText("Personal");
+        menuBar.add(jMenu5);
+
+        jMenu6.setText("Moviles");
+        menuBar.add(jMenu6);
+
+        jMenu7.setText("Logistica");
+        menuBar.add(jMenu7);
+
+        jMenu8.setText("Materiales");
+        menuBar.add(jMenu8);
+
+        jMenu9.setText("Herramientas");
+        menuBar.add(jMenu9);
+
+        jMenu1.setText("Articulos");
 
         jMenuItem1.setText("Registro");
         jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
@@ -48,17 +83,29 @@ public class MDI_Principal extends javax.swing.JFrame {
         });
         jMenu1.add(jMenuItem1);
 
-        jMenuItem2.setText("Entrega");
-        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+        jMenu10.setText("Nota de Salida");
+
+        jMenuItem4.setText("Lista");
+        jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem2ActionPerformed(evt);
+                jMenuItem4ActionPerformed(evt);
             }
         });
-        jMenu1.add(jMenuItem2);
+        jMenu10.add(jMenuItem4);
+
+        jMenuItem5.setText("Registrar");
+        jMenuItem5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem5ActionPerformed(evt);
+            }
+        });
+        jMenu10.add(jMenuItem5);
+
+        jMenu1.add(jMenu10);
 
         menuBar.add(jMenu1);
 
-        jMenu2.setText("Trabajador");
+        jMenu2.setText("Trabajadores");
 
         jMenuItem3.setText("Lista");
         jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
@@ -137,11 +184,15 @@ public class MDI_Principal extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(desktopPane, javax.swing.GroupLayout.DEFAULT_SIZE, 894, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(desktopPane, javax.swing.GroupLayout.PREFERRED_SIZE, 1227, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(desktopPane, javax.swing.GroupLayout.DEFAULT_SIZE, 476, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(desktopPane, javax.swing.GroupLayout.PREFERRED_SIZE, 649, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         pack();
@@ -157,17 +208,21 @@ public class MDI_Principal extends javax.swing.JFrame {
         jifra.setVisible(true);
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
-    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
-        JIF_Entrega_Articulo jifea=new JIF_Entrega_Articulo();
-        desktopPane.add(jifea);
-        jifea.setVisible(true);
-    }//GEN-LAST:event_jMenuItem2ActionPerformed
-
     private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
         JIF_Lista_Trabajadores jiflt=new JIF_Lista_Trabajadores();
         desktopPane.add(jiflt);
         jiflt.setVisible(true);
     }//GEN-LAST:event_jMenuItem3ActionPerformed
+
+    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
+       
+    }//GEN-LAST:event_jMenuItem4ActionPerformed
+
+    private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
+        JIF_Entrega_Articulo jifea=new JIF_Entrega_Articulo();
+        desktopPane.add(jifea);
+        jifea.setVisible(true);
+    }//GEN-LAST:event_jMenuItem5ActionPerformed
    
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -208,16 +263,25 @@ public class MDI_Principal extends javax.swing.JFrame {
     private javax.swing.JMenuItem copyMenuItem;
     private javax.swing.JMenuItem cutMenuItem;
     private javax.swing.JMenuItem deleteMenuItem;
-    private javax.swing.JDesktopPane desktopPane;
+    public static javax.swing.JDesktopPane desktopPane;
     private javax.swing.JMenu editMenu;
     private javax.swing.JMenuItem exitMenuItem;
     private javax.swing.JMenu fileMenu;
     private javax.swing.JMenu helpMenu;
     private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenu jMenu10;
     private javax.swing.JMenu jMenu2;
+    private javax.swing.JMenu jMenu3;
+    private javax.swing.JMenu jMenu4;
+    private javax.swing.JMenu jMenu5;
+    private javax.swing.JMenu jMenu6;
+    private javax.swing.JMenu jMenu7;
+    private javax.swing.JMenu jMenu8;
+    private javax.swing.JMenu jMenu9;
     private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
+    private javax.swing.JMenuItem jMenuItem4;
+    private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuBar menuBar;
     private javax.swing.JMenuItem openMenuItem;
     private javax.swing.JMenuItem pasteMenuItem;

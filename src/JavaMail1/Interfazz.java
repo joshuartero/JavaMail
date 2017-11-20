@@ -276,9 +276,9 @@ public class Interfazz extends java.awt.Frame {
     //        mail.setMessage( this.jTextArea1.getText() );
             mail.setMessage( llenarMensaje() );
             mail.destinatarios[0]="JOSHUA_AS@hotmail.com";
-            mail.destinatarios[1]="JOSHUAORMACHEA1987@gmail.com";
-    //        mail.destinatarios[2]="jormachea@procesosproductivos.com";
-            mail.destinatarios[2]=jTextField3.getText();
+//            mail.destinatarios[1]="JOSHUAORMACHEA1987@gmail.com";
+//    //        mail.destinatarios[2]="jormachea@procesosproductivos.com";
+//            mail.destinatarios[2]=jTextField3.getText();
             int opc=JOptionPane.showConfirmDialog(this,"ESTA SEGURO QUE DESEA ENVIAR ESTE CORREO ?","",JOptionPane.YES_NO_OPTION);
             if(opc==JOptionPane.YES_OPTION)
                 mail.SEND();            

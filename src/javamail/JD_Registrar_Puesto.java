@@ -20,6 +20,7 @@ public class JD_Registrar_Puesto extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         setLocationRelativeTo(this);
+        mostrarId();
     }
 
     @SuppressWarnings("unchecked")
@@ -43,6 +44,8 @@ public class JD_Registrar_Puesto extends javax.swing.JDialog {
         jLabel1.setText("ID");
 
         jLabel2.setText("Puesto");
+
+        jTextField1.setEnabled(false);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -134,6 +137,17 @@ public class JD_Registrar_Puesto extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    void mostrarId()
+    {   try
+        {   st=con.createStatement();
+            rs=st.executeQuery("SELECT MAX(Id) FROM Puesto;");
+            if(rs.next())
+                jTextField1.setText(""+ (Integer.parseInt(rs.getString(1))+1) );
+            else jTextField1.setText("101");
+        }
+        catch(SQLException e){  JOptionPane.showMessageDialog(this, "Error Debido a : "+e.toString());}
+    }
+    
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         if(!camposNoVacios())
         {   int opc=JOptionPane.showConfirmDialog(this, "Desea Registrar Este Puesto?", "CONFIRMAR REGISTRO", JOptionPane.YES_NO_OPTION);

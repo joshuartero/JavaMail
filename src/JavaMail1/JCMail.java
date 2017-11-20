@@ -27,19 +27,30 @@ public class JCMail {
     private InternetAddress[] addressTo;
     private String Subject = "";//titulo del mensaje
     private String MessageMail = "";//contenido del mensaje
-    String[] destinatarios=new String[3];
+    String[] destinatarios=new String[1];
 
     public JCMail(){}
 
     public void SEND()
     {
         try {
+//            Properties props = new Properties();
+//            props.put("mail.smtp.host", "smtp.gmail.com");
+//            props.put("mail.smtp.starttls.enable", "true");
+//            props.put("mail.smtp.auth", "true");
+//            props.put("mail.smtp.user", "usuario");
+//            props.put("mail.smtp.port", 25);
             Properties props = new Properties();
-            props.put("mail.smtp.host", "smtp.gmail.com");
-            props.put("mail.smtp.starttls.enable", "true");
-            props.put("mail.smtp.auth", "true");
-            props.put("mail.smtp.user", "usuario");
-            props.put("mail.smtp.port", 25);
+            // Nombre del host de correo, es smtp.gmail.com
+            props.setProperty("mail.smtp.host", "smtp.gmail.com");
+            // TLS si está disponible
+            props.setProperty("mail.smtp.starttls.enable", "true");
+            // Puerto de gmail para envio de correos
+            props.setProperty("mail.smtp.port","587");
+            // Nombre del usuario
+            props.setProperty("mail.smtp.user", "joshuaormachea1987@gmail.com");
+            // Si requiere o no usuario y password para conectarse.
+            props.setProperty("mail.smtp.auth", "true");
             //
 //            JOptionPane.showMessageDialog(null, getFrom()+" "+getPassword());
             SMTPAuthenticator auth = new SMTPAuthenticator( getFrom(), getPassword() );

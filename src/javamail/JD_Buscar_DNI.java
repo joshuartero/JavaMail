@@ -31,7 +31,7 @@ public class JD_Buscar_DNI extends javax.swing.JDialog {
     void listarPersonas()
     {   try
         {   st=con.createStatement();
-            rs=st.executeQuery("SELECT * FROM Persona");
+            rs=st.executeQuery("SELECT * FROM Persona P LEFT JOIN Trabajador T ON P.`DNI`=T.`DNI` WHERE T.`CODIGO`IS NULL;");
             modelo=(DefaultTableModel) jTable1.getModel();
             while(rs.next())
             {   Object rowData[]={rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5)};
