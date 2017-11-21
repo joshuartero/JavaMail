@@ -190,6 +190,11 @@ public class JD_Registrar_Trabajador extends javax.swing.JDialog {
         });
 
         jButton4.setText("Salir");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -287,11 +292,13 @@ public class JD_Registrar_Trabajador extends javax.swing.JDialog {
         {   st=con.createStatement();
             st.executeUpdate("INSERT INTO Trabajador VALUES ('"+jTextField1.getText()+"','"+jTextField2.getText()+"',"
                     + "(SELECT Id FROM AREA WHERE AREA='"+jTextField4.getText()+"'),"
-                    + "(SELECT Id FROM Puesto WHERE Puesto='"+jTextField3.getText()+"'));");
+                    + "(SELECT Id FROM Puesto WHERE Puesto='"+jTextField3.getText()+"'),"
+                    + "'"+jTextField5.getText()+"');");
             jTextField1.setText("");
             jTextField2.setText("");
             jTextField3.setText("");
             jTextField4.setText("");
+            jTextField5.setText("");
             mostrarCodigo();
             JOptionPane.showMessageDialog(this, "Trabajador Registrado !");
             dispose();
@@ -308,6 +315,10 @@ public class JD_Registrar_Trabajador extends javax.swing.JDialog {
         JD_Buscar_Area jdba=new JD_Buscar_Area(this,true);
         jdba.setVisible(true);
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        dispose();
+    }//GEN-LAST:event_jButton4ActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;

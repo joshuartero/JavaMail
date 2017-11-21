@@ -22,7 +22,7 @@ public class JIF_Entrega_Articulo extends javax.swing.JInternalFrame {
     String message;
     cConexion conexion=new cConexion();
     Connection con=conexion.getConnection();
-    Statement st; ResultSet rs;
+    Statement st; ResultSet rs, rs2, rs3;
     public static char[] password={'c','c','m','p','p','2','0','1','7'};
     
     public JIF_Entrega_Articulo() {
@@ -32,7 +32,6 @@ public class JIF_Entrega_Articulo extends javax.swing.JInternalFrame {
                 
         cargarEntrega();
         cargarRecibe();
-        cargarArea();
         cargarArticulos();
         setDefaultEntrega();
     }
@@ -76,18 +75,9 @@ public class JIF_Entrega_Articulo extends javax.swing.JInternalFrame {
         catch(SQLException e){JOptionPane.showMessageDialog(this, "ERROR DEBIDO A : "+e.toString());}    
     }
     
-    void cargarArea()
-    {   try
-        {   rs=st.executeQuery("SELECT AREA FROM AREA;");
-            while(rs.next())
-                jComboBox3.addItem(rs.getString(1));
-        }
-        catch(SQLException e){JOptionPane.showMessageDialog(this, "ERROR DEBIDO A : "+e.toString());}    
-    }
-    
     void cargarArticulos()
     {   try
-        {   rs=st.executeQuery("SELECT DESCRIPCION FROM ARTICULO;");
+        {   rs=st.executeQuery("SELECT DESCRIPCION FROM ARTICULO WHERE CANTIDAD >0;");
             while(rs.next())
                 jComboBox5.addItem(""+rs.getString(1));
         }
@@ -109,7 +99,7 @@ public class JIF_Entrega_Articulo extends javax.swing.JInternalFrame {
             message=message+"<h4>"+modelo.getValueAt(i, 0)+" "+modelo.getValueAt(i, 1)+"</h4>\n";
         message+="<h4>---------------------------------</h4>\n"+
         "<h3>ENTREGADO : "+jComboBox6.getSelectedItem()+"</h3>\n"+
-        "<h4>AREA : "+jComboBox3.getSelectedItem()+"</h4>\n"+
+        "<h4>AREA : "+jTextField2.getText()+"</h4>\n"+
         "<h6>NOTA: Los materiales entregados disminuyen del stock total de nuestro almacen, a su vez estan siendo cargados al record de retiro de materiales de cada trabajador y de cada Area</h6>";  
         return message;
     }
@@ -127,6 +117,8 @@ public class JIF_Entrega_Articulo extends javax.swing.JInternalFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         jButton2 = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        jTextField1 = new javax.swing.JTextField();
         jPanel2 = new javax.swing.JPanel();
         jLabel11 = new javax.swing.JLabel();
         jTextField7 = new javax.swing.JTextField();
@@ -137,7 +129,7 @@ public class JIF_Entrega_Articulo extends javax.swing.JInternalFrame {
         jLabel14 = new javax.swing.JLabel();
         dateChooserCombo1 = new datechooser.beans.DateChooserCombo();
         jLabel15 = new javax.swing.JLabel();
-        jComboBox3 = new javax.swing.JComboBox<>();
+        jTextField2 = new javax.swing.JTextField();
         jPanel3 = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
 
@@ -158,7 +150,19 @@ public class JIF_Entrega_Articulo extends javax.swing.JInternalFrame {
 
         jLabel16.setText("Articulo");
 
+        jComboBox5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox5ActionPerformed(evt);
+            }
+        });
+
         jLabel17.setText("Cantidad");
+
+        jTextField9.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTextField9KeyTyped(evt);
+            }
+        });
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -188,6 +192,10 @@ public class JIF_Entrega_Articulo extends javax.swing.JInternalFrame {
             }
         });
 
+        jLabel1.setText("Stock");
+
+        jTextField1.setEnabled(false);
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -195,15 +203,19 @@ public class JIF_Entrega_Articulo extends javax.swing.JInternalFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jScrollPane1)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 477, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel16)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jComboBox5, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabel17)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextField9)))
+                        .addComponent(jTextField9, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -219,7 +231,9 @@ public class JIF_Entrega_Articulo extends javax.swing.JInternalFrame {
                     .addComponent(jLabel16)
                     .addComponent(jComboBox5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel17)
-                    .addComponent(jTextField9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTextField9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1)
+                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
@@ -242,11 +256,25 @@ public class JIF_Entrega_Articulo extends javax.swing.JInternalFrame {
 
         jLabel12.setText("Entrega");
 
+        jComboBox6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox6ActionPerformed(evt);
+            }
+        });
+
         jLabel13.setText("Recibe");
+
+        jComboBox7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox7ActionPerformed(evt);
+            }
+        });
 
         jLabel14.setText("Fecha");
 
         jLabel15.setText("Area");
+
+        jTextField2.setEnabled(false);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -271,8 +299,9 @@ public class JIF_Entrega_Articulo extends javax.swing.JInternalFrame {
                     .addComponent(jLabel15))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jComboBox7, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jTextField2)
+                    .addComponent(jComboBox7, 0, 220, Short.MAX_VALUE))
+                .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -294,7 +323,7 @@ public class JIF_Entrega_Articulo extends javax.swing.JInternalFrame {
                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel15)
-                            .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGroup(jPanel2Layout.createSequentialGroup()
                             .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                 .addComponent(jLabel13)
@@ -433,7 +462,7 @@ public class JIF_Entrega_Articulo extends javax.swing.JInternalFrame {
     String getIdArea()
     {   String id="";
         try
-        {   rs=st.executeQuery("SELECT Id FROM AREA WHERE AREA='"+jComboBox3.getSelectedItem()+"';");
+        {   rs=st.executeQuery("SELECT Id FROM AREA WHERE AREA='"+jTextField2.getText()+"';");
             if(rs.next())
                 id=rs.getString(1);
         }
@@ -459,10 +488,40 @@ public class JIF_Entrega_Articulo extends javax.swing.JInternalFrame {
     }  
     
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        Object[] row={jTextField9.getText(), jComboBox5.getSelectedItem()};
-        modelo.addRow(row);
+       if(!articuloEnLista(jComboBox5.getSelectedItem()+""))
+       {    if(validarCantidad())
+            {   Object[] row={jTextField9.getText(), jComboBox5.getSelectedItem()};
+                modelo.addRow(row);        
+            }
+       }
+        
     }//GEN-LAST:event_jButton3ActionPerformed
-
+    boolean articuloEnLista(String articulo)
+    {   boolean encontrado=false;
+        for(int i=0;i<modelo.getRowCount();i++)
+        {   if(((String)modelo.getValueAt(i, 1)).compareTo(articulo)==0)
+            {   JOptionPane.showMessageDialog(this, "Articulo ya en lista");
+                encontrado=true;
+            }
+        }
+        return encontrado;
+    }
+    
+    boolean validarCantidad()
+    {   boolean ok=true;
+        if(jTextField9.getText().length()==0)
+        {   JOptionPane.showMessageDialog(this, "Porfavor Ingrese Cantidad");
+            jTextField9.requestFocus();
+            ok=false;
+        }
+        else if(Integer.parseInt(jTextField1.getText())<Integer.parseInt(jTextField9.getText()))
+        {   JOptionPane.showMessageDialog(this, "Cantidad Mayor que Stock");
+            jTextField9.requestFocus();
+            ok=false;
+        }
+        return ok;
+    }
+    
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         if(jTable1.getSelectedRow()>=0)
             modelo.removeRow(jTable1.getSelectedRow());
@@ -474,16 +533,53 @@ public class JIF_Entrega_Articulo extends javax.swing.JInternalFrame {
         
     }//GEN-LAST:event_jPanel2MouseClicked
 
+    private void jComboBox5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox5ActionPerformed
+        try
+        {   st=con.createStatement();
+            rs2=st.executeQuery("SELECT Cantidad FROM ARTICULO WHERE Descripcion='"+jComboBox5.getSelectedItem()+"';");
+            if(rs2.next())
+                jTextField1.setText(rs2.getString(1));
+        }
+        catch(SQLException e){JOptionPane.showMessageDialog(this, "ERROR DEBIDO A : "+e.toString());} 
+    }//GEN-LAST:event_jComboBox5ActionPerformed
+
+    private void jTextField9KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField9KeyTyped
+        char caracter = evt.getKeyChar();
+        // Verificar si la tecla pulsada no es un digito
+        if(((caracter < '0') ||
+           (caracter > '9')) &&
+           (caracter != '\b' /*corresponde a BACK_SPACE*/))
+        {
+           evt.consume();  // ignorar el evento de teclado
+        }
+    }//GEN-LAST:event_jTextField9KeyTyped
+
+    private void jComboBox6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox6ActionPerformed
+        
+    }//GEN-LAST:event_jComboBox6ActionPerformed
+
+    private void jComboBox7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox7ActionPerformed
+        try
+        {   st=con.createStatement();
+            rs3=st.executeQuery("SELECT A.`AREA` FROM Trabajador T INNER JOIN Persona P ON T.`DNI`=P.`DNI` INNER JOIN AREA A "
+                    + "ON T.`IDAREA`=A.`ID` WHERE CONCAT(P.`APELLIDOP`, ' ', P.`APELLIDOM`, ' ', P.`NOMBRES`)="
+                    + "'"+jComboBox7.getSelectedItem()+"';");
+            if(rs3.next())
+                jTextField2.setText(rs3.getString(1));
+        }
+        catch(SQLException e){JOptionPane.showMessageDialog(this, "ERROR DEBIDO A : "+e.toString());} 
+    }//GEN-LAST:event_jComboBox7ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private datechooser.beans.DateChooserCombo dateChooserCombo1;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
-    private javax.swing.JComboBox<String> jComboBox3;
     private javax.swing.JComboBox<String> jComboBox5;
     private javax.swing.JComboBox<String> jComboBox6;
     private javax.swing.JComboBox<String> jComboBox7;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
@@ -496,6 +592,8 @@ public class JIF_Entrega_Articulo extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
+    private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField7;
     private javax.swing.JTextField jTextField9;
     // End of variables declaration//GEN-END:variables

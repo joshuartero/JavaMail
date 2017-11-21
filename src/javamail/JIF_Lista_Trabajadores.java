@@ -26,12 +26,12 @@ public class JIF_Lista_Trabajadores extends javax.swing.JInternalFrame {
     void listarTrabajadores()
     {   try
         {   st=con.createStatement();
-            rs=st.executeQuery("SELECT T.`CODIGO`, T.`DNI`, P.`NOMBRES`, P.`APELLIDOP`, P.`APELLIDOM`, Pu.`PUESTO`, A.`AREA`"
+            rs=st.executeQuery("SELECT T.`CODIGO`, T.`DNI`, P.`NOMBRES`, P.`APELLIDOP`, P.`APELLIDOM`, Pu.`PUESTO`, A.`AREA`, T.Correo "
                     + "FROM Trabajador T INNER JOIN Persona P ON T.`DNI`=P.`DNI` INNER JOIN AREA A ON T.`IDAREA`=A.`ID` "
-                    + "INNER JOIN Puesto Pu ON T.`IDPUESTO`=Pu.`ID`;");
+                    + "INNER JOIN Puesto Pu ON T.`IDPUESTO`=Pu.`ID` ORDER BY T.Codigo;");
             modelo=(DefaultTableModel) jTable1.getModel();
             while(rs.next())
-            {   Object rowData[]={rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6), rs.getString(7)};
+            {   Object rowData[]={rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6), rs.getString(7), rs.getString(8)};
                 modelo.addRow(rowData);
             }
         }
@@ -94,11 +94,11 @@ public class JIF_Lista_Trabajadores extends javax.swing.JInternalFrame {
 
             },
             new String [] {
-                "Codigo", "D.N.I.", "Nombres", "Apellido P", "ApellidoM", "Puesto", "Area"
+                "Codigo", "D.N.I.", "Nombres", "Apellido P", "ApellidoM", "Puesto", "Area", "Correo"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false
+                false, false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -112,8 +112,9 @@ public class JIF_Lista_Trabajadores extends javax.swing.JInternalFrame {
             jTable1.getColumnModel().getColumn(2).setMaxWidth(150);
             jTable1.getColumnModel().getColumn(3).setMaxWidth(150);
             jTable1.getColumnModel().getColumn(4).setMaxWidth(150);
-            jTable1.getColumnModel().getColumn(5).setMaxWidth(150);
+            jTable1.getColumnModel().getColumn(5).setMaxWidth(200);
             jTable1.getColumnModel().getColumn(6).setMaxWidth(240);
+            jTable1.getColumnModel().getColumn(7).setMaxWidth(200);
         }
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -123,7 +124,7 @@ public class JIF_Lista_Trabajadores extends javax.swing.JInternalFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 781, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 989, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
