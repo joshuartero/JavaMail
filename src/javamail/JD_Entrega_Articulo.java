@@ -13,11 +13,9 @@ import javax.swing.table.DefaultTableModel;
 
 /**
  *
- * @author MEGAELECTRIC
- * Configurar el correo para que permita el uso de JavaMail, en la siguiente direccion
- * https://accounts.google.com/ServiceLogin/signinchooser?service=accountsettings&passive=1209600&osid=1&continue=https%3A%2F%2Fmyaccount.google.com%2Flesssecureapps&followup=https%3A%2F%2Fmyaccount.google.com%2Flesssecureapps&emr=1&mrp=security&flowName=GlifWebSignIn&flowEntry=ServiceLogin
+ * @author Joshua
  */
-public class JIF_Entrega_Articulo extends javax.swing.JInternalFrame {
+public class JD_Entrega_Articulo extends javax.swing.JDialog {
 
     JCMail mail = new JCMail();
     DefaultTableModel modelo;
@@ -26,17 +24,21 @@ public class JIF_Entrega_Articulo extends javax.swing.JInternalFrame {
     Connection con=conexion.getConnection();
     Statement st; ResultSet rs, rs2, rs3;
     public static char[] password={'c','c','m','p','p','2','0','1','7'};
+    JIF_Lista_NotaSalida jiflns;
     
-    public JIF_Entrega_Articulo() {
+    public JD_Entrega_Articulo(JIF_Lista_NotaSalida jiflns, boolean modal) {
+        super(JOptionPane.getFrameForComponent(jiflns), modal);
         initComponents();
+        this.jiflns=jiflns;
         modelo=(DefaultTableModel) jTable1.getModel();  
+        setLocationRelativeTo(this);
                 
         cargarEntrega();
         cargarRecibe();
         cargarArticulos();
         setDefaultEntrega();
     }
-    
+
     String setCodigoNS()
     {   Calendar c = new GregorianCalendar();
         String dia = Integer.toString(c.get(Calendar.DATE));
@@ -101,6 +103,7 @@ public class JIF_Entrega_Articulo extends javax.swing.JInternalFrame {
         message+="<h4>---------------------------------</h4>\n"+
         "<h3>ENTREGADO : "+jComboBox6.getSelectedItem()+"</h3>\n"+
         "<h4>AREA : "+jTextField2.getText()+"</h4>\n"+
+        "<h4>O.M. : "+jTextField3.getText()+"</h4>\n"+
         "<h6>NOTA: Los materiales entregados disminuyen del stock total de nuestro almacen, a su vez estan siendo cargados al record de retiro de materiales de cada trabajador y de cada Area</h6>";  
         return message;
     }
@@ -109,6 +112,8 @@ public class JIF_Entrega_Articulo extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanel3 = new javax.swing.JPanel();
+        jButton1 = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jButton3 = new javax.swing.JButton();
         jLabel16 = new javax.swing.JLabel();
@@ -127,14 +132,37 @@ public class JIF_Entrega_Articulo extends javax.swing.JInternalFrame {
         jComboBox7 = new javax.swing.JComboBox<>();
         jLabel15 = new javax.swing.JLabel();
         jTextField2 = new javax.swing.JTextField();
-        jPanel3 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
+        jTextField3 = new javax.swing.JTextField();
 
-        setClosable(true);
-        setIconifiable(true);
-        setMaximizable(true);
-        setResizable(true);
-        setTitle("NOTA DE SALIDA");
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Entrega de Articulos");
+
+        jPanel3.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+
+        jButton1.setText("Enviar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jButton1)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jButton1)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
 
         jPanel1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
@@ -178,9 +206,6 @@ public class JIF_Entrega_Articulo extends javax.swing.JInternalFrame {
             }
         });
         jScrollPane1.setViewportView(jTable1);
-        if (jTable1.getColumnModel().getColumnCount() > 0) {
-            jTable1.getColumnModel().getColumn(0).setMaxWidth(100);
-        }
 
         jButton2.setText("Quitar");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -200,7 +225,7 @@ public class JIF_Entrega_Articulo extends javax.swing.JInternalFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 477, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel16)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -267,15 +292,27 @@ public class JIF_Entrega_Articulo extends javax.swing.JInternalFrame {
 
         jTextField2.setEnabled(false);
 
+        jLabel2.setText("O.M.:");
+
+        jTextField3.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTextField3KeyTyped(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel12)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel12)
+                    .addComponent(jLabel2))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jComboBox6, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jComboBox6, 0, 200, Short.MAX_VALUE)
+                    .addComponent(jTextField3))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel13)
@@ -298,33 +335,9 @@ public class JIF_Entrega_Articulo extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel15)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
-        jPanel3.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-
-        jButton1.setText("Enviar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jButton1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jButton1)
+                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2)
+                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -351,14 +364,14 @@ public class JIF_Entrega_Articulo extends javax.swing.JInternalFrame {
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(23, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        if(modelo.getRowCount()!=0)
+        if(!camposVacios())
         {   mail.setFrom( "logisticaccmpp@gmail.com" );
             mail.setPassword( password );
             String correoDestinatario=correoTrabajador(jComboBox7.getSelectedItem().toString());
@@ -368,28 +381,107 @@ public class JIF_Entrega_Articulo extends javax.swing.JInternalFrame {
                 mail.setMessage( llenarMensaje() );
                 mail.destinatarios[0]="joshua_as@hotmail.com";
                 mail.destinatarios[1]="jormachea@procesosproductivos.com";
-        //                mail.destinatarios[2]="joshua_as@hotmail.com";
-        //                mail.destinatarios[3]="joshua_as@hotmail.com";
+                //                mail.destinatarios[2]="joshua_as@hotmail.com";
+                //                mail.destinatarios[3]="joshua_as@hotmail.com";
                 int opc=JOptionPane.showConfirmDialog(this,"ESTA SEGURO QUE DESEA ENVIAR ESTE CORREO ?","",JOptionPane.YES_NO_OPTION);
                 if(opc==JOptionPane.YES_OPTION)
                 {   if(mail.SEND())
                         guardarEnBD();
-                }            
+                }
             }
-            else JOptionPane.showMessageDialog(this, "Destinatario No cuenta con correo");            
+            else JOptionPane.showMessageDialog(this, "Destinatario No cuenta con correo");
         }
-        else JOptionPane.showMessageDialog(this, "Agrege almenos un articulo");            
     }//GEN-LAST:event_jButton1ActionPerformed
     
-    void guardarEnBD()
-    {   
+    boolean camposVacios()
+    {   boolean ok=false;
+        if(jTextField3.getText().length()==0)
+        {   JOptionPane.showMessageDialog(this,"Ingrese Numero de O.M.");
+            jTextField3.requestFocus();
+            ok=true;
+        }
+        else if(modelo.getRowCount()==0)
+        {   JOptionPane.showMessageDialog(this, "Agrege almenos un articulo");
+            ok=true;
+        }        
+        return ok;
+    }
+    
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        if(!articuloEnLista(jComboBox5.getSelectedItem()+""))
+        {    if(validarCantidad())
+            {   Object[] row={jTextField9.getText(), jComboBox5.getSelectedItem()};
+                modelo.addRow(row);
+            }
+        }
+
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jComboBox5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox5ActionPerformed
         try
-        {   for(int i=0;i<modelo.getRowCount();i++)
-            {   st.executeUpdate("INSERT INTO Nota_salida VALUES ('"+setCodigoNS()+"','"+codigoTrabajador(jComboBox6.getSelectedItem().toString())+"',"
+        {   st=con.createStatement();
+            rs2=st.executeQuery("SELECT Cantidad FROM ARTICULO WHERE Descripcion='"+jComboBox5.getSelectedItem()+"';");
+            if(rs2.next())
+                jTextField1.setText(rs2.getString(1));
+        }
+        catch(SQLException e){JOptionPane.showMessageDialog(this, "ERROR DEBIDO A : "+e.toString());}
+    }//GEN-LAST:event_jComboBox5ActionPerformed
+
+    private void jTextField9KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField9KeyTyped
+        char caracter = evt.getKeyChar();
+        // Verificar si la tecla pulsada no es un digito
+        if(((caracter < '0') ||
+            (caracter > '9')) &&
+        (caracter != '\b' /*corresponde a BACK_SPACE*/))
+        {
+            evt.consume();  // ignorar el evento de teclado
+        }
+    }//GEN-LAST:event_jTextField9KeyTyped
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        if(jTable1.getSelectedRow()>=0)
+            modelo.removeRow(jTable1.getSelectedRow());
+        else
+            JOptionPane.showMessageDialog(this, "Porfavor seleccione una fila");
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jComboBox6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox6ActionPerformed
+
+    }//GEN-LAST:event_jComboBox6ActionPerformed
+
+    private void jComboBox7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox7ActionPerformed
+        try
+        {   st=con.createStatement();
+            rs3=st.executeQuery("SELECT A.`AREA` FROM Trabajador T INNER JOIN Persona P ON T.`DNI`=P.`DNI` INNER JOIN AREA A "
+                + "ON T.`IDAREA`=A.`ID` WHERE CONCAT(P.`APELLIDOP`, ' ', P.`APELLIDOM`, ' ', P.`NOMBRES`)="
+                + "'"+jComboBox7.getSelectedItem()+"';");
+            if(rs3.next())
+                jTextField2.setText(rs3.getString(1));
+        }
+        catch(SQLException e){JOptionPane.showMessageDialog(this, "ERROR DEBIDO A : "+e.toString());}
+    }//GEN-LAST:event_jComboBox7ActionPerformed
+
+    private void jPanel2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel2MouseClicked
+
+    }//GEN-LAST:event_jPanel2MouseClicked
+
+    private void jTextField3KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField3KeyTyped
+        if (jTextField3.getText().length()==9)
+            evt.consume();
+        char caracter = evt.getKeyChar();
+        if( ((caracter < '0') || (caracter > '9')) && (caracter != '\b' /*corresponde a BACK_SPACE*/))
+            evt.consume();    
+    }//GEN-LAST:event_jTextField3KeyTyped
+
+    void guardarEnBD()
+    {   try
+        {   String codigoNS=setCodigoNS();
+            for(int i=0;i<modelo.getRowCount();i++)
+            {   st.executeUpdate("INSERT INTO Nota_salida VALUES ('"+codigoNS+"','"+codigoTrabajador(jComboBox6.getSelectedItem().toString())+"',"
                 + "'"+codigoTrabajador(jComboBox7.getSelectedItem().toString())+"','"+getFechaHora()+"','"+getIdArea()+"',"
-                + "'"+getCodArticulo(""+modelo.getValueAt(i, 1))+"','"+modelo.getValueAt(i, 0)+"');");
+                + "'"+getCodArticulo(""+modelo.getValueAt(i, 1))+"','"+modelo.getValueAt(i, 0)+"','"+jTextField3.getText()+"');");
             }              
-            jTextField9.setText("");
+            jTextField9.setText("");    jTextField3.setText("");
             limpiarTabla();
             JOptionPane.showMessageDialog(this, "Nota de Salida Registrada !");
         }
@@ -456,16 +548,6 @@ public class JIF_Entrega_Articulo extends javax.swing.JInternalFrame {
             modelo.removeRow(jTable1.getRowCount()-1);        
     }  
     
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-       if(!articuloEnLista(jComboBox5.getSelectedItem()+""))
-       {    if(validarCantidad())
-            {   Object[] row={jTextField9.getText(), jComboBox5.getSelectedItem()};
-                modelo.addRow(row);        
-            }
-       }
-        
-    }//GEN-LAST:event_jButton3ActionPerformed
-    
     boolean articuloEnLista(String articulo)
     {   boolean encontrado=false;
         for(int i=0;i<modelo.getRowCount();i++)
@@ -492,55 +574,6 @@ public class JIF_Entrega_Articulo extends javax.swing.JInternalFrame {
         return ok;
     }
     
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        if(jTable1.getSelectedRow()>=0)
-            modelo.removeRow(jTable1.getSelectedRow());
-        else
-            JOptionPane.showMessageDialog(this, "Porfavor seleccione una fila");
-    }//GEN-LAST:event_jButton2ActionPerformed
-
-    private void jPanel2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel2MouseClicked
-        
-    }//GEN-LAST:event_jPanel2MouseClicked
-
-    private void jComboBox5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox5ActionPerformed
-        try
-        {   st=con.createStatement();
-            rs2=st.executeQuery("SELECT Cantidad FROM ARTICULO WHERE Descripcion='"+jComboBox5.getSelectedItem()+"';");
-            if(rs2.next())
-                jTextField1.setText(rs2.getString(1));
-        }
-        catch(SQLException e){JOptionPane.showMessageDialog(this, "ERROR DEBIDO A : "+e.toString());} 
-    }//GEN-LAST:event_jComboBox5ActionPerformed
-
-    private void jTextField9KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField9KeyTyped
-        char caracter = evt.getKeyChar();
-        // Verificar si la tecla pulsada no es un digito
-        if(((caracter < '0') ||
-           (caracter > '9')) &&
-           (caracter != '\b' /*corresponde a BACK_SPACE*/))
-        {
-           evt.consume();  // ignorar el evento de teclado
-        }
-    }//GEN-LAST:event_jTextField9KeyTyped
-
-    private void jComboBox6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox6ActionPerformed
-        
-    }//GEN-LAST:event_jComboBox6ActionPerformed
-
-    private void jComboBox7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox7ActionPerformed
-        try
-        {   st=con.createStatement();
-            rs3=st.executeQuery("SELECT A.`AREA` FROM Trabajador T INNER JOIN Persona P ON T.`DNI`=P.`DNI` INNER JOIN AREA A "
-                    + "ON T.`IDAREA`=A.`ID` WHERE CONCAT(P.`APELLIDOP`, ' ', P.`APELLIDOM`, ' ', P.`NOMBRES`)="
-                    + "'"+jComboBox7.getSelectedItem()+"';");
-            if(rs3.next())
-                jTextField2.setText(rs3.getString(1));
-        }
-        catch(SQLException e){JOptionPane.showMessageDialog(this, "ERROR DEBIDO A : "+e.toString());} 
-    }//GEN-LAST:event_jComboBox7ActionPerformed
-
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
@@ -554,6 +587,7 @@ public class JIF_Entrega_Articulo extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
@@ -561,6 +595,7 @@ public class JIF_Entrega_Articulo extends javax.swing.JInternalFrame {
     private javax.swing.JTable jTable1;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
+    private javax.swing.JTextField jTextField3;
     private javax.swing.JTextField jTextField9;
     // End of variables declaration//GEN-END:variables
 }

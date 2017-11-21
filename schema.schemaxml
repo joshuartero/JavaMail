@@ -7,7 +7,7 @@
 <tables>
 <table name="AREA" view="colnames">
 <left>710</left>
-<top>170</top>
+<top>142</top>
 <width>77</width>
 <height>109</height>
 <sql_create_table>CREATE TABLE `area` (
@@ -17,8 +17,8 @@
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1</sql_create_table>
 </table>
 <table name="ARTICULO" view="colnames">
-<left>711</left>
-<top>287</top>
+<left>712</left>
+<top>257</top>
 <width>155</width>
 <height>131</height>
 <sql_create_table>CREATE TABLE `articulo` (
@@ -40,27 +40,29 @@
   `CODIGO` char(12) NOT NULL,
   `COD_TRAB_ENTREG` char(4) NOT NULL,
   `COD_TRAB_RECIB` char(4) NOT NULL,
-  `FECHA` date NOT NULL,
+  `FECHA` datetime NOT NULL,
   `IDAREA` char(3) NOT NULL,
   `CODARTICULO` char(7) NOT NULL,
   `CANTIDAD` int(11) NOT NULL,
+  `NRO_OM` char(9) NOT NULL,
+  KEY `NRO_OM` (`NRO_OM`),
+  KEY `CODARTICULO` (`CODARTICULO`),
+  KEY `IDAREA` (`IDAREA`),
   KEY `COD_TRAB_ENTREG` (`COD_TRAB_ENTREG`),
   KEY `COD_TRAB_RECIB` (`COD_TRAB_RECIB`),
-  KEY `IDAREA` (`IDAREA`),
-  KEY `CODARTICULO` (`CODARTICULO`),
-  CONSTRAINT `nota_salida_ibfk_1` FOREIGN KEY (`COD_TRAB_ENTREG`) REFERENCES `trabajador` (`CODIGO`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `nota_salida_ibfk_2` FOREIGN KEY (`COD_TRAB_RECIB`) REFERENCES `trabajador` (`CODIGO`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `nota_salida_ibfk_2` FOREIGN KEY (`CODARTICULO`) REFERENCES `articulo` (`CODIGO`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `nota_salida_ibfk_3` FOREIGN KEY (`IDAREA`) REFERENCES `area` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `nota_salida_ibfk_4` FOREIGN KEY (`CODARTICULO`) REFERENCES `articulo` (`CODIGO`) ON DELETE CASCADE ON UPDATE CASCADE
+  CONSTRAINT `nota_salida_ibfk_4` FOREIGN KEY (`COD_TRAB_ENTREG`) REFERENCES `trabajador` (`CODIGO`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `nota_salida_ibfk_5` FOREIGN KEY (`COD_TRAB_RECIB`) REFERENCES `trabajador` (`CODIGO`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1</sql_create_table>
 </table>
-<table name="orden_mantenimiento" view="colnames">
-<left>885</left>
-<top>185</top>
+<table name="ORDEN_MANTENIMIENTO" view="colnames">
+<left>712</left>
+<top>397</top>
 <width>158</width>
-<height>75</height>
+<height>85</height>
 <sql_create_table>CREATE TABLE `orden_mantenimiento` (
-  `NRO` char(10) NOT NULL,
+  `NRO` char(9) NOT NULL,
   PRIMARY KEY (`NRO`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1</sql_create_table>
 </table>
@@ -115,7 +117,7 @@
   `DNI` char(8) NOT NULL,
   `IDAREA` char(3) NOT NULL,
   `IDPUESTO` char(3) NOT NULL,
-  `CORREO` varchar(30) NOT NULL,
+  `CORREO` varchar(60) NOT NULL,
   PRIMARY KEY (`CODIGO`),
   KEY `DNI` (`DNI`),
   KEY `IDPUESTO` (`IDPUESTO`),

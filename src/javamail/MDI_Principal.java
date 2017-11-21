@@ -1,5 +1,7 @@
 package javamail;
 
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author MEGAELECTRIC
@@ -11,9 +13,13 @@ public class MDI_Principal extends javax.swing.JFrame {
 //        this.setExtendedState(MAXIMIZED_BOTH);
         this.setLocationRelativeTo(this);
         
-        JIF_Entrega_Articulo jifea=new JIF_Entrega_Articulo();
-        desktopPane.add(jifea);
-        jifea.setVisible(true);
+//        JIF_Lista_Trabajadores jiflt=new JIF_Lista_Trabajadores();
+//        desktopPane.add(jiflt);
+//        jiflt.setVisible(true);
+        
+        JIF_Lista_NotaSalida jiflns=new JIF_Lista_NotaSalida();
+        desktopPane.add(jiflns);
+        jiflns.setVisible(true);
     }
 
     @SuppressWarnings("unchecked")
@@ -184,11 +190,11 @@ public class MDI_Principal extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(desktopPane, javax.swing.GroupLayout.PREFERRED_SIZE, 1138, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(desktopPane, javax.swing.GroupLayout.DEFAULT_SIZE, 1138, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(desktopPane, javax.swing.GroupLayout.PREFERRED_SIZE, 497, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(desktopPane, javax.swing.GroupLayout.DEFAULT_SIZE, 497, Short.MAX_VALUE)
         );
 
         pack();
@@ -211,7 +217,9 @@ public class MDI_Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
     private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
-       
+        JIF_Lista_NotaSalida jiflns=new JIF_Lista_NotaSalida();
+        desktopPane.add(jiflns);
+        jiflns.setVisible(true);
     }//GEN-LAST:event_jMenuItem4ActionPerformed
 
     private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
@@ -248,7 +256,8 @@ public class MDI_Principal extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new MDI_Principal().setVisible(true);
+                //new MDI_Principal().setVisible(true);
+                new Thread(new SplashScream()).start();
             }
         });
     }
