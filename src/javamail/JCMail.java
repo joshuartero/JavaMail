@@ -21,13 +21,17 @@ public class JCMail
     private InternetAddress[] addressTo;
     private String Subject = "";//titulo del mensaje
     private String MessageMail = "";//contenido del mensaje
-    public String[] destinatarios=new String[2];
+    public String[] destinatarios;
 
     public JCMail()
     {
     }
     
-   boolean SEND()
+    void setTamañoDestinatarios(int tamaño)
+    {   destinatarios=new String[tamaño];
+    }
+    
+    boolean SEND()
     {   boolean enviado=false;
         try 
         {   Properties props = new Properties();

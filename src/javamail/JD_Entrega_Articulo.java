@@ -91,9 +91,9 @@ public class JD_Entrega_Articulo extends javax.swing.JDialog {
     {   jComboBox6.setSelectedItem("Ormachea Del Aguila Joshua");
     }
     
-    String llenarMensaje()
+    String llenarMensaje(String codigoNS)
     {   Calendar c = new GregorianCalendar();
-        message="<h1>NOTA DE SALIDA : "+setCodigoNS()+"</h1>\n"+
+        message="<h1>NOTA DE SALIDA : "+codigoNS+"</h1>\n"+
                 "<h4>RECIBIDO : "+jComboBox7.getSelectedItem()+"</h4>\n"+                
                 "<h4>---------------------------------</h4>\n"+
                 "<h4>Fecha y Hora : "+getFechaHora()+" "+c.get(Calendar.HOUR_OF_DAY)+":"+c.get(Calendar.MINUTE)+":"+c.get(Calendar.SECOND)+"</h4>\n"+
@@ -375,23 +375,70 @@ public class JD_Entrega_Articulo extends javax.swing.JDialog {
         {   mail.setFrom( "logisticaccmpp@gmail.com" );
             mail.setPassword( password );
             String correoDestinatario=correoTrabajador(jComboBox7.getSelectedItem().toString());
+            String codigoNS=setCodigoNS();
             if(correoDestinatario.length()!=0)
             {   mail.setTo( correoDestinatario );
-                mail.setSubject( "Nota de Salida Nº "+setCodigoNS() );
-                mail.setMessage( llenarMensaje() );
-                mail.destinatarios[0]="joshua_as@hotmail.com";
-                mail.destinatarios[1]="jormachea@procesosproductivos.com";
-                //                mail.destinatarios[2]="joshua_as@hotmail.com";
-                //                mail.destinatarios[3]="joshua_as@hotmail.com";
+                mail.setSubject( "Nota de Salida Nº "+codigoNS );
+                mail.setMessage( llenarMensaje(codigoNS) );                
+                destinatarios();
                 int opc=JOptionPane.showConfirmDialog(this,"ESTA SEGURO QUE DESEA ENVIAR ESTE CORREO ?","",JOptionPane.YES_NO_OPTION);
                 if(opc==JOptionPane.YES_OPTION)
-                {   if(mail.SEND())
-                        guardarEnBD();
+                {   if(guardarEnBD(codigoNS))
+                    {   mail.SEND();
+                        dispose();
+                    }
                 }
             }
             else JOptionPane.showMessageDialog(this, "Destinatario No cuenta con correo");
         }
     }//GEN-LAST:event_jButton1ActionPerformed
+    
+    void destinatarios()
+    {   if(jTextField2.getText().compareTo("ALUMBRADO PUBLICO")==0)
+        {   mail.setTamañoDestinatarios(1);
+            mail.destinatarios[0]="jynoquio@procesosproductivos.com";            
+        }
+        if(jTextField2.getText().compareTo("BAJA TENSION")==0)
+        {   mail.setTamañoDestinatarios(1);
+            mail.destinatarios[0]="tcayetano@procesosproductivos.com";            
+        }
+        if(jTextField2.getText().compareTo("CALIDAD DE PRODUCTO")==0)
+        {   mail.setTamañoDestinatarios(1);
+            mail.destinatarios[0]="jhuamanchumo@procesosproductivos.com";            
+        }
+        if(jTextField2.getText().compareTo("EMERGENCIAS")==0)
+        {   mail.setTamañoDestinatarios(4);
+            mail.destinatarios[0]="eyaipen@procesosproductivos.com";
+            mail.destinatarios[1]="ycornejo@procesosproductivos.com";            
+            mail.destinatarios[2]="ringa@procesosproductivos.com";            
+            mail.destinatarios[3]="ccoronado@procesosproductivos.com";
+        }        
+        if(jTextField2.getText().compareTo("MEDIA TENSION")==0)
+        {   mail.setTamañoDestinatarios(2);
+            mail.destinatarios[0]="dminope@procesosproductivos.com";
+            mail.destinatarios[1]="eelera@procesosproductivos.com";
+        }
+        if(jTextField2.getText().compareTo("PODAS")==0)
+        {   mail.setTamañoDestinatarios(1);
+            mail.destinatarios[0]="dminope@procesosproductivos.com";
+        }
+        if(jTextField2.getText().compareTo("LOGISTICA")==0)
+        {   mail.setTamañoDestinatarios(1);
+            mail.destinatarios[0]="jormachea@procesosproductivos.com";
+        }
+        if(jTextField2.getText().compareTo("SEGURIDAD")==0)
+        {   mail.setTamañoDestinatarios(1);
+            mail.destinatarios[0]="jlramos@procesosproductivos.com";
+        }
+        if(jTextField2.getText().compareTo("TODAS")==0)
+        {   mail.setTamañoDestinatarios(1);
+            mail.destinatarios[0]="elitano@procesosproductivos.com";
+        }
+        if(jTextField2.getText().compareTo("TERMOGRAFIA")==0)
+        {   mail.setTamañoDestinatarios(1);
+            mail.destinatarios[0]="eyarleque@procesosproductivos.com";
+        }
+    }
     
     boolean camposVacios()
     {   boolean ok=false;
@@ -473,10 +520,10 @@ public class JD_Entrega_Articulo extends javax.swing.JDialog {
             evt.consume();    
     }//GEN-LAST:event_jTextField3KeyTyped
 
-    void guardarEnBD()
-    {   try
-        {   String codigoNS=setCodigoNS();
-            for(int i=0;i<modelo.getRowCount();i++)
+    boolean guardarEnBD(String codigoNS)
+    {   boolean ok=false;
+        try
+        {   for(int i=0;i<modelo.getRowCount();i++)
             {   st.executeUpdate("INSERT INTO Nota_salida VALUES ('"+codigoNS+"','"+codigoTrabajador(jComboBox6.getSelectedItem().toString())+"',"
                 + "'"+codigoTrabajador(jComboBox7.getSelectedItem().toString())+"','"+getFechaHora()+"','"+getIdArea()+"',"
                 + "'"+getCodArticulo(""+modelo.getValueAt(i, 1))+"','"+modelo.getValueAt(i, 0)+"','"+jTextField3.getText()+"');");
@@ -484,8 +531,13 @@ public class JD_Entrega_Articulo extends javax.swing.JDialog {
             jTextField9.setText("");    jTextField3.setText("");
             limpiarTabla();
             JOptionPane.showMessageDialog(this, "Nota de Salida Registrada !");
+            ok=true;
         }
-        catch(SQLException e){  JOptionPane.showMessageDialog(this, "Error Debido a : "+e.toString());}
+        catch(SQLException e)
+        {   JOptionPane.showMessageDialog(this, "Error Debido a : "+e.toString());
+            ok=false;
+        }
+        return ok;
     }
     
     String correoTrabajador(String nombresApellidos)

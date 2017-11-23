@@ -70,7 +70,7 @@ public class SplashScream extends javax.swing.JFrame implements Runnable {
         {   this.setLocationRelativeTo(null);
             this.setVisible(true);
             //Hilo.sleep(6000);
-            Hilo.sleep(60);
+            Hilo.sleep(6);
             this.dispose();
             MDI_Principal VentanaPrincipa=new MDI_Principal();
             VentanaPrincipa.setVisible(true);

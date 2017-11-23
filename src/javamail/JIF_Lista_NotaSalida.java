@@ -1,5 +1,6 @@
 package javamail;
 
+import java.awt.Frame;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -207,7 +208,16 @@ public class JIF_Lista_NotaSalida extends javax.swing.JInternalFrame {
 
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
         if(evt.getClickCount()==2)
-            JOptionPane.showMessageDialog(this, jTable1.getValueAt(jTable1.getSelectedRow(), 0));
+        {   JD_Nota_Salida jdns=new JD_Nota_Salida(this,true);
+            jdns.jTextField1.setText(jTable1.getValueAt(jTable1.getSelectedRow(), 0)+"");
+            jdns.jTextField2.setText(jTable1.getValueAt(jTable1.getSelectedRow(), 3)+"");
+            jdns.jTextField3.setText(jTable1.getValueAt(jTable1.getSelectedRow(), 4)+"");
+            jdns.jTextField4.setText(jTable1.getValueAt(jTable1.getSelectedRow(), 5)+"");
+            jdns.jTextField5.setText(jTable1.getValueAt(jTable1.getSelectedRow(), 1)+"");
+            jdns.jTextField6.setText(jTable1.getValueAt(jTable1.getSelectedRow(), 2)+"");
+            jdns.listarArticulos();
+            jdns.setVisible(true);
+        }
     }//GEN-LAST:event_jTable1MouseClicked
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
