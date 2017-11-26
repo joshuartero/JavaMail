@@ -13,13 +13,9 @@ public class MDI_Principal extends javax.swing.JFrame {
 //        this.setExtendedState(MAXIMIZED_BOTH);
         this.setLocationRelativeTo(this);
         
-//        JIF_Lista_Trabajadores jiflt=new JIF_Lista_Trabajadores();
-//        desktopPane.add(jiflt);
-//        jiflt.setVisible(true);
-        
-        JIF_Lista_NotaSalida jiflns=new JIF_Lista_NotaSalida();
-        desktopPane.add(jiflns);
-        jiflns.setVisible(true);
+        JIF_Lista_Trabajadores jiflt=new JIF_Lista_Trabajadores();
+        desktopPane.add(jiflt);
+        jiflt.setVisible(true);
     }
 
     @SuppressWarnings("unchecked")

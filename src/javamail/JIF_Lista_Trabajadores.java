@@ -76,7 +76,7 @@ public class JIF_Lista_Trabajadores extends javax.swing.JInternalFrame {
             }
         });
 
-        jLabel1.setText("Codigo");
+        jLabel1.setText("Nombres Y Apellidos");
 
         jTextField1.addCaretListener(new javax.swing.event.CaretListener() {
             public void caretUpdate(javax.swing.event.CaretEvent evt) {
@@ -103,6 +103,11 @@ public class JIF_Lista_Trabajadores extends javax.swing.JInternalFrame {
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
+            }
+        });
+        jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTable1MouseClicked(evt);
             }
         });
         jScrollPane1.setViewportView(jTable1);
@@ -152,16 +157,16 @@ public class JIF_Lista_Trabajadores extends javax.swing.JInternalFrame {
                     .addComponent(jButton1)
                     .addComponent(jButton2)
                     .addComponent(jButton3))
-                .addContainerGap(27, Short.MAX_VALUE))
+                .addContainerGap(23, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        JD_Registrar_Trabajador jdrp=new JD_Registrar_Trabajador(this,true);
-        jdrp.setVisible(true);
-        if(jdrp.isVisible()==false)
+        JD_Registrar_Trabajador jdrt=new JD_Registrar_Trabajador(this,true);
+        jdrt.setVisible(true);
+        if(jdrt.isVisible()==false)
         {   limpiarTabla();
             listarTrabajadores();
         }
@@ -174,34 +179,56 @@ public class JIF_Lista_Trabajadores extends javax.swing.JInternalFrame {
     }
     
     private void jTextField1CaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_jTextField1CaretUpdate
-//        try
-//        {   rs=st.executeQuery("SELECT * FROM Persona WHERE DNI LIKE '%"+jTextField1.getText()+"%'");
-//            limpiarTabla();
-//            modelo=(DefaultTableModel) jTable1.getModel();
-//            while(rs.next())
-//            {   Object rowData[]={rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5)};
-//                modelo.addRow(rowData);
-//            }
-//        }
-//        catch(SQLException e)   {   JOptionPane.showMessageDialog(this,"Error debido a: "+e.toString());}
+        try
+        {   rs=st.executeQuery("SELECT T.`CODIGO`, T.`DNI`, P.`NOMBRES`, P.`APELLIDOP`, P.`APELLIDOM`, Pu.`PUESTO`, A.`AREA`, T.`CORREO` FROM Trabajador T INNER JOIN Persona P ON T.`DNI`=P.`DNI` INNER JOIN AREA A ON T.`IDAREA`=A.`ID` INNER JOIN Puesto Pu ON T.`IDPUESTO`=Pu.`ID` WHERE CONCAT(P.`APELLIDOP`, ' ', P.`APELLIDOM`, ' ', P.`NOMBRES`) LIKE '%"+jTextField1.getText()+"%' ORDER BY T.Codigo");
+            limpiarTabla();
+            modelo=(DefaultTableModel) jTable1.getModel();
+            while(rs.next())
+            {   Object rowData[]={rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6), rs.getString(7), rs.getString(8)};
+                modelo.addRow(rowData);
+            }
+        }
+        catch(SQLException e)   {   JOptionPane.showMessageDialog(this,"Error debido a: "+e.toString());}
     }//GEN-LAST:event_jTextField1CaretUpdate
 
     private void jTextField1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField1KeyTyped
-        if (jTextField1.getText().length()==4)
-            evt.consume();
-        char caracter = evt.getKeyChar();
-        if( ((caracter < '0') || (caracter > '9')) && (caracter != '\b' /*corresponde a BACK_SPACE*/))
-            evt.consume();
+//        if (jTextField1.getText().length()==4)
+//            evt.consume();
+//        char caracter = evt.getKeyChar();
+//        if( ((caracter < '0') || (caracter > '9')) && (caracter != '\b' /*corresponde a BACK_SPACE*/))
+//            evt.consume();
     }//GEN-LAST:event_jTextField1KeyTyped
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
+        if(jTable1.getSelectedRow()!=-1)
+            mostrarJD_Reg_Trab();
+        else JOptionPane.showMessageDialog(this, "Porfavor seleccione un trabajador");
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        // TODO add your handling code here:
+        
     }//GEN-LAST:event_jButton3ActionPerformed
 
+    private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
+        if(evt.getClickCount()==2)
+            mostrarJD_Reg_Trab();
+    }//GEN-LAST:event_jTable1MouseClicked
+
+    void mostrarJD_Reg_Trab()
+    {   JD_Registrar_Trabajador jdrt=new JD_Registrar_Trabajador(this,true);
+        jdrt.jButton3.setText("Modificar");
+        jdrt.setTitle("Modificar Trabajador");
+        jdrt.jTextField1.setText(jTable1.getValueAt(jTable1.getSelectedRow(), 0)+"");
+        jdrt.jTextField2.setText(jTable1.getValueAt(jTable1.getSelectedRow(), 1)+"");
+        jdrt.jTextField3.setText(jTable1.getValueAt(jTable1.getSelectedRow(), 5)+"");
+        jdrt.jTextField4.setText(jTable1.getValueAt(jTable1.getSelectedRow(), 6)+"");
+        jdrt.jTextField5.setText(jTable1.getValueAt(jTable1.getSelectedRow(), 7)+"");
+        jdrt.setVisible(true);
+        if(jdrt.isVisible()==false)
+        {   limpiarTabla();
+            listarTrabajadores();
+        }
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;

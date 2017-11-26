@@ -59,7 +59,7 @@
 <table name="ORDEN_MANTENIMIENTO" view="colnames">
 <left>712</left>
 <top>397</top>
-<width>158</width>
+<width>173</width>
 <height>85</height>
 <sql_create_table>CREATE TABLE `orden_mantenimiento` (
   `NRO` char(9) NOT NULL,
@@ -115,8 +115,8 @@
 <sql_create_table>CREATE TABLE `trabajador` (
   `CODIGO` char(4) NOT NULL,
   `DNI` char(8) NOT NULL,
-  `IDAREA` char(3) NOT NULL,
   `IDPUESTO` char(3) NOT NULL,
+  `IDAREA` char(3) NOT NULL,
   `CORREO` varchar(60) NOT NULL,
   PRIMARY KEY (`CODIGO`),
   KEY `DNI` (`DNI`),

@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package javamail;
 
 import java.sql.Connection;
@@ -21,6 +16,7 @@ public class JD_Registrar_Trabajador extends javax.swing.JDialog {
     cConexion conexion=new cConexion();
     Connection con=conexion.getConnection();
     Statement st;   ResultSet rs;
+    String funcion;
             
     public JD_Registrar_Trabajador(JIF_Lista_Trabajadores jiflt, boolean modal) {
         super(JOptionPane.getFrameForComponent(jiflt), modal);
@@ -128,20 +124,20 @@ public class JD_Registrar_Trabajador extends javax.swing.JDialog {
                                 .addGap(16, 16, 16)))
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jTextField2)
-                                    .addComponent(jTextField1))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jButton1))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jTextField4)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jButton2))))
+                                .addComponent(jButton2))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE))))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(jLabel3)
                         .addGap(18, 18, 18)
-                        .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jTextField3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton5))
                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -177,7 +173,7 @@ public class JD_Registrar_Trabajador extends javax.swing.JDialog {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
                     .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(25, Short.MAX_VALUE))
+                .addContainerGap(13, Short.MAX_VALUE))
         );
 
         jPanel2.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -205,7 +201,7 @@ public class JD_Registrar_Trabajador extends javax.swing.JDialog {
                 .addComponent(jButton3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton4)
-                .addContainerGap(184, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -223,12 +219,10 @@ public class JD_Registrar_Trabajador extends javax.swing.JDialog {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -249,14 +243,28 @@ public class JD_Registrar_Trabajador extends javax.swing.JDialog {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        if(!camposNoVacios())
-        {   int opc=JOptionPane.showConfirmDialog(this, "Desea Registrar Este Trabajador?", "CONFIRMAR REGISTRO", JOptionPane.YES_NO_OPTION);
-            if(opc==JOptionPane.YES_OPTION)
-            {   registrar();
-            }
-        }
+        funcion();
     }//GEN-LAST:event_jButton3ActionPerformed
 
+    void funcion()
+    {   if(jButton3.getText().compareTo("Registrar")==0)
+        {   if(!camposNoVacios())
+            {   int opc=JOptionPane.showConfirmDialog(this, "Desea Registrar Este Trabajador?", "CONFIRMAR REGISTRO", JOptionPane.YES_NO_OPTION);
+                if(opc==JOptionPane.YES_OPTION)
+                {   registrar();
+                }
+            }   
+        }
+        if(jButton3.getText().compareTo("Modificar")==0)
+        {   if(!camposNoVacios())
+            {   int opc=JOptionPane.showConfirmDialog(this, "Desea Modificar Este Trabajador?", "CONFIRMAR MODIFICACION", JOptionPane.YES_NO_OPTION);
+                if(opc==JOptionPane.YES_OPTION)
+                {   modificar();
+                }
+            } 
+        }
+    }
+    
     boolean camposNoVacios()
     {   boolean vacios=false;
         if(jTextField1.getText().length()==0)
@@ -294,13 +302,20 @@ public class JD_Registrar_Trabajador extends javax.swing.JDialog {
                     + "(SELECT Id FROM AREA WHERE AREA='"+jTextField4.getText()+"'),"
                     + "(SELECT Id FROM Puesto WHERE Puesto='"+jTextField3.getText()+"'),"
                     + "'"+jTextField5.getText()+"');");
-            jTextField1.setText("");
-            jTextField2.setText("");
-            jTextField3.setText("");
-            jTextField4.setText("");
-            jTextField5.setText("");
-            mostrarCodigo();
             JOptionPane.showMessageDialog(this, "Trabajador Registrado !");
+            dispose();
+        }
+        catch(SQLException e){  JOptionPane.showMessageDialog(this, "Error Debido a : "+e.toString());}
+    }
+    
+    void modificar()
+    {   try
+        {   st=con.createStatement();
+            st.executeUpdate("UPDATE Trabajador SET Dni='"+jTextField2.getText()+"', "
+                    + "IdPuesto=(SELECT Id FROM Puesto WHERE Puesto='"+jTextField3.getText()+"'), "
+                    + "Idarea=(SELECT Id FROM AREA WHERE AREA='"+jTextField4.getText()+"'), "
+                    + "Correo='"+jTextField5.getText()+"' WHERE Codigo='"+jTextField1.getText()+"';");
+            JOptionPane.showMessageDialog(this, "Datos Actualizados !");
             dispose();
         }
         catch(SQLException e){  JOptionPane.showMessageDialog(this, "Error Debido a : "+e.toString());}
@@ -323,7 +338,7 @@ public class JD_Registrar_Trabajador extends javax.swing.JDialog {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
+    public static javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JLabel jLabel1;
@@ -333,10 +348,10 @@ public class JD_Registrar_Trabajador extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JTextField jTextField1;
+    public static javax.swing.JTextField jTextField1;
     public static javax.swing.JTextField jTextField2;
     public static javax.swing.JTextField jTextField3;
     public static javax.swing.JTextField jTextField4;
-    private javax.swing.JTextField jTextField5;
+    public static javax.swing.JTextField jTextField5;
     // End of variables declaration//GEN-END:variables
 }

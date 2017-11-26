@@ -375,68 +375,120 @@ public class JD_Entrega_Articulo extends javax.swing.JDialog {
         {   mail.setFrom( "logisticaccmpp@gmail.com" );
             mail.setPassword( password );
             String correoDestinatario=correoTrabajador(jComboBox7.getSelectedItem().toString());
-            String codigoNS=setCodigoNS();
-            if(correoDestinatario.length()!=0)
-            {   mail.setTo( correoDestinatario );
+            if(correoDestinatario.compareTo("logisticaccmpp@gmail.com")!=0)
+            {   String codigoNS=setCodigoNS();
+                mail.setTo( correoDestinatario );
                 mail.setSubject( "Nota de Salida Nº "+codigoNS );
                 mail.setMessage( llenarMensaje(codigoNS) );                
-                destinatarios();
-                int opc=JOptionPane.showConfirmDialog(this,"ESTA SEGURO QUE DESEA ENVIAR ESTE CORREO ?","",JOptionPane.YES_NO_OPTION);
+                destinatarios(correoDestinatario);
+                int opc=JOptionPane.showConfirmDialog(this,"Esta seguro que desa registrar esta nota de salida ? "
+                        + "\nSe enviara el comprobante al correo : \n"+correoDestinatario+
+                        "\nCon copia a su supervisor, tambien a Administracion y Gerencia","",JOptionPane.YES_NO_OPTION);
                 if(opc==JOptionPane.YES_OPTION)
                 {   if(guardarEnBD(codigoNS))
                     {   mail.SEND();
                         dispose();
                     }
-                }
+                }                
             }
-            else JOptionPane.showMessageDialog(this, "Destinatario No cuenta con correo");
+            else 
+            {   JOptionPane.showMessageDialog(this, "Destinatario No cuenta con correo");
+                
+            }
         }
     }//GEN-LAST:event_jButton1ActionPerformed
     
-    void destinatarios()
+    void destinatarios(String correoDestinatario)
     {   if(jTextField2.getText().compareTo("ALUMBRADO PUBLICO")==0)
-        {   mail.setTamañoDestinatarios(1);
-            mail.destinatarios[0]="jynoquio@procesosproductivos.com";            
+        {   mail.setTamañoDestinatarios(7);
+            mail.destinatarios[0]=correoDestinatario;
+            mail.destinatarios[1]="jynoquio@procesosproductivos.com";
+            mail.destinatarios[2]="jcsergen2016@gmail.com";
+            mail.destinatarios[3]="ecuray@procesosproductivos.com";
+            mail.destinatarios[4]="elitano@procesosproductivos.com";
+            mail.destinatarios[5]="pverastegui@procesosproductivos.com";
+            mail.destinatarios[6]="jormachea@procesosproductivos.com";
         }
         if(jTextField2.getText().compareTo("BAJA TENSION")==0)
-        {   mail.setTamañoDestinatarios(1);
-            mail.destinatarios[0]="tcayetano@procesosproductivos.com";            
+        {   mail.setTamañoDestinatarios(6);
+            mail.destinatarios[0]=correoDestinatario;
+            mail.destinatarios[1]="tcayetano@procesosproductivos.com";  
+            mail.destinatarios[2]="ltorres@procesosproductivos.com";
+            mail.destinatarios[3]="elitano@procesosproductivos.com";
+            mail.destinatarios[4]="pverastegui@procesosproductivos.com";
+            mail.destinatarios[5]="jormachea@procesosproductivos.com";
         }
         if(jTextField2.getText().compareTo("CALIDAD DE PRODUCTO")==0)
-        {   mail.setTamañoDestinatarios(1);
-            mail.destinatarios[0]="jhuamanchumo@procesosproductivos.com";            
+        {   mail.setTamañoDestinatarios(6);
+            mail.destinatarios[0]=correoDestinatario;
+            mail.destinatarios[1]="jhuamanchumo@procesosproductivos.com"; 
+            mail.destinatarios[2]="gnavarro@procesosproductivos.com";
+            mail.destinatarios[3]="elitano@procesosproductivos.com";
+            mail.destinatarios[4]="pverastegui@procesosproductivos.com";
+            mail.destinatarios[5]="jormachea@procesosproductivos.com";
         }
         if(jTextField2.getText().compareTo("EMERGENCIAS")==0)
-        {   mail.setTamañoDestinatarios(4);
-            mail.destinatarios[0]="eyaipen@procesosproductivos.com";
-            mail.destinatarios[1]="ycornejo@procesosproductivos.com";            
+        {   mail.setTamañoDestinatarios(12);
+            mail.destinatarios[0]=correoDestinatario;
+            mail.destinatarios[1]="eyaipen@procesosproductivos.com";
             mail.destinatarios[2]="ringa@procesosproductivos.com";            
-            mail.destinatarios[3]="ccoronado@procesosproductivos.com";
+            mail.destinatarios[3]="ycornejo@procesosproductivos.com";            
+            mail.destinatarios[4]="ccoronado@procesosproductivos.com";            
+            mail.destinatarios[5]="rsuarez@procesosproductivos.com";
+            mail.destinatarios[6]="vcorrea@procesosproductivos.com";
+            mail.destinatarios[7]="jgalvez@procesosproductivos.com";
+            mail.destinatarios[8]="cnavarro@procesosproductivos.com";
+            mail.destinatarios[9]="elitano@procesosproductivos.com";
+            mail.destinatarios[10]="pverastegui@procesosproductivos.com";
+            mail.destinatarios[11]="jormachea@procesosproductivos.com";
         }        
         if(jTextField2.getText().compareTo("MEDIA TENSION")==0)
-        {   mail.setTamañoDestinatarios(2);
-            mail.destinatarios[0]="dminope@procesosproductivos.com";
-            mail.destinatarios[1]="eelera@procesosproductivos.com";
+        {   mail.setTamañoDestinatarios(7);
+            mail.destinatarios[0]=correoDestinatario;
+            mail.destinatarios[1]="dminope@procesosproductivos.com";
+            mail.destinatarios[2]="eelera@procesosproductivos.com";
+            mail.destinatarios[3]="lagurto@procesosproductivos.com";
+            mail.destinatarios[4]="elitano@procesosproductivos.com";
+            mail.destinatarios[5]="pverastegui@procesosproductivos.com";
+            mail.destinatarios[6]="jormachea@procesosproductivos.com";
         }
         if(jTextField2.getText().compareTo("PODAS")==0)
-        {   mail.setTamañoDestinatarios(1);
-            mail.destinatarios[0]="dminope@procesosproductivos.com";
+        {   mail.setTamañoDestinatarios(5);
+            mail.destinatarios[0]=correoDestinatario;
+            mail.destinatarios[1]="dminope@procesosproductivos.com";
+            mail.destinatarios[2]="elitano@procesosproductivos.com";
+            mail.destinatarios[3]="pverastegui@procesosproductivos.com";
+            mail.destinatarios[4]="jormachea@procesosproductivos.com";
         }
         if(jTextField2.getText().compareTo("LOGISTICA")==0)
-        {   mail.setTamañoDestinatarios(1);
-            mail.destinatarios[0]="jormachea@procesosproductivos.com";
+        {   mail.setTamañoDestinatarios(4);
+            mail.destinatarios[0]=correoDestinatario;
+            mail.destinatarios[1]="jormachea@procesosproductivos.com";
+            mail.destinatarios[2]="elitano@procesosproductivos.com";
+            mail.destinatarios[3]="pverastegui@procesosproductivos.com";
         }
         if(jTextField2.getText().compareTo("SEGURIDAD")==0)
-        {   mail.setTamañoDestinatarios(1);
-            mail.destinatarios[0]="jlramos@procesosproductivos.com";
+        {   mail.setTamañoDestinatarios(5);
+            mail.destinatarios[0]=correoDestinatario;
+            mail.destinatarios[1]="jlramos@procesosproductivos.com";
+            mail.destinatarios[2]="elitano@procesosproductivos.com";
+            mail.destinatarios[3]="pverastegui@procesosproductivos.com";
+            mail.destinatarios[4]="jormachea@procesosproductivos.com";
         }
         if(jTextField2.getText().compareTo("TODAS")==0)
-        {   mail.setTamañoDestinatarios(1);
-            mail.destinatarios[0]="elitano@procesosproductivos.com";
+        {   mail.setTamañoDestinatarios(4);
+            mail.destinatarios[0]=correoDestinatario;
+            mail.destinatarios[1]="elitano@procesosproductivos.com";
+            mail.destinatarios[2]="pverastegui@procesosproductivos.com";
+            mail.destinatarios[3]="jormachea@procesosproductivos.com";
         }
         if(jTextField2.getText().compareTo("TERMOGRAFIA")==0)
-        {   mail.setTamañoDestinatarios(1);
-            mail.destinatarios[0]="eyarleque@procesosproductivos.com";
+        {   mail.setTamañoDestinatarios(5);
+            mail.destinatarios[0]=correoDestinatario;
+            mail.destinatarios[1]="eyarleque@procesosproductivos.com";
+            mail.destinatarios[2]="elitano@procesosproductivos.com";
+            mail.destinatarios[3]="pverastegui@procesosproductivos.com";
+            mail.destinatarios[4]="jormachea@procesosproductivos.com";
         }
     }
     
@@ -509,7 +561,7 @@ public class JD_Entrega_Articulo extends javax.swing.JDialog {
     }//GEN-LAST:event_jComboBox7ActionPerformed
 
     private void jPanel2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel2MouseClicked
-
+        JOptionPane.showMessageDialog(this, correoTrabajador(jComboBox7.getSelectedItem()+""));
     }//GEN-LAST:event_jPanel2MouseClicked
 
     private void jTextField3KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField3KeyTyped
@@ -538,6 +590,15 @@ public class JD_Entrega_Articulo extends javax.swing.JDialog {
             ok=false;
         }
         return ok;
+    }
+    
+    boolean tieneCorreo()
+    {   boolean tiene=true;
+        if(correoTrabajador(jComboBox7.getSelectedItem()+"").compareTo("logisticaccmpp@gmail.com")==0)
+        {   JOptionPane.showMessageDialog(this, "Trabajador No Tiene Correo");
+            tiene=false;
+        }
+        return tiene;
     }
     
     String correoTrabajador(String nombresApellidos)
@@ -597,7 +658,7 @@ public class JD_Entrega_Articulo extends javax.swing.JDialog {
     void limpiarTabla()
     {   int a = jTable1.getRowCount()-1;
         for (int i = a; i >= 0; i--)           
-            modelo.removeRow(jTable1.getRowCount()-1);        
+            modelo.removeRow(jTable1.getRowCount()-1);       
     }  
     
     boolean articuloEnLista(String articulo)

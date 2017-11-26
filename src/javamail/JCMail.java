@@ -47,7 +47,8 @@ public class JCMail
             //Se crea destino y origen del mensaje
             MimeMessage mimemessage = new MimeMessage(session);            
             InternetAddress addressFrom = new InternetAddress( getFrom() );            
-            mimemessage.setFrom(addressFrom);                        
+            mimemessage.setFrom(addressFrom);    
+//            JOptionPane.showMessageDialog(null, destinatarios.length);
             Address []destinos = new Address[destinatarios.length];//Aqui usamos el arreglo de destinatarios
             for(int i=0;i<destinos.length;i++){
                 destinos[i]=new InternetAddress(destinatarios[i]);

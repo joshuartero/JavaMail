@@ -9,6 +9,7 @@ INSERT INTO ARTICULO VALUES ('AMA10000007','CINTA MASTIC','TA01');
 
 SELECT * FROM Persona;
 SELECT * FROM Persona WHERE DNI LIKE '%7%';
+SELECT * FROM Persona WHERE ApellidoP LIKE '%ac%';
 SELECT * FROM Persona P LEFT JOIN Trabajador T ON P.`DNI`=T.`DNI` WHERE T.`CODIGO`IS NULL;
 INSERT INTO Persona VALUES ('44182117','Joshua','Ormachea','Del Aguila','2017-12-29');
 
@@ -16,9 +17,10 @@ SELECT * FROM Trabajador;
 SELECT T.Correo FROM Trabajador T INNER JOIN Persona P ON T.`DNI`=P.`DNI`WHERE CONCAT(P.`APELLIDOP`, ' ',P.`APELLIDOM`, ' ',P.`NOMBRES`)='Ormachea Del Aguila Joshua';
 SELECT MAX(Codigo) FROM Trabajador;
 SELECT P.`APELLIDOP`, P.`APELLIDOM`, P.`NOMBRES`, T.`CORREO` FROM Trabajador T INNER JOIN Persona P ON T.`DNI`=P.`DNI` WHERE CONCAT(P.`APELLIDOP`, ' ',P.`APELLIDOM`, ' ',P.`NOMBRES`)<>'Coronado Silupu Cesar' ORDER BY P.`APELLIDOP`;
-SELECT T.`CODIGO`, T.`DNI`, P.`NOMBRES`, P.`APELLIDOP`, P.`APELLIDOM`, A.`AREA`, Pu.`PUESTO` FROM Trabajador T INNER JOIN Persona P ON T.`DNI`=P.`DNI` INNER JOIN AREA A ON T.`IDAREA`=A.`ID` INNER JOIN Puesto Pu ON T.`IDPUESTO`=Pu.`ID`;
+SELECT T.`CODIGO`, T.`DNI`, P.`NOMBRES`, P.`APELLIDOP`, P.`APELLIDOM`, A.`AREA`, Pu.`PUESTO`, T.`CORREO` FROM Trabajador T INNER JOIN Persona P ON T.`DNI`=P.`DNI` INNER JOIN AREA A ON T.`IDAREA`=A.`ID` INNER JOIN Puesto Pu ON T.`IDPUESTO`=Pu.`ID` WHERE CONCAT(P.`APELLIDOP`, ' ', P.`APELLIDOM`, ' ', P.`NOMBRES`) LIKE '%aca%';
 SELECT A.`AREA` FROM Trabajador T INNER JOIN Persona P ON T.`DNI`=P.`DNI` INNER JOIN AREA A ON T.`IDAREA`=A.`ID` WHERE CONCAT(P.`APELLIDOP`, ' ', P.`APELLIDOM`, ' ', P.`NOMBRES`)='Ormachea Del Aguila Joshua';
 INSERT INTO Trabajador VALUES ('8002','46642210',(SELECT Id FROM AREA WHERE AREA='MEDIA TENSION'),(SELECT Id FROM Puesto WHERE Puesto='Tecnico Electricista'));
+UPDATE Trabajador SET Dni='44182117', IdPuesto=(SELECT Id FROM Puesto WHERE Puesto='Encargado'), Idarea=(SELECT Id FROM AREA WHERE AREA='Logistica'), Correo='Joshuaormachea1987xx@gmail.com' WHERE Codigo='8001';
 
 SELECT * FROM AREA;
 SELECT AREA FROM AREA;
@@ -29,8 +31,10 @@ INSERT INTO AREA VALUES ('108','SEGURIDAD');
 SELECT * FROM Puesto;
 
 SELECT * FROM Nota_Salida;
+SELECT NS.`CANTIDAD`, A.`DESCRIPCION` FROM Nota_Salida NS INNER JOIN Articulo A ON NS.`CODARTICULO`= A.`CODIGO` where NS.Codigo='171121112001';
 SELECT DISTINCT(Codigo) FROM Nota_Salida ORDER BY Codigo;
 SELECT * FROM Nota_Salida WHERE Codigo='171121100630';
+SELECT NS.`CODIGO`, (SELECT CONCAT(P.ApellidoP,' ',P.ApellidoM,' ',P.Nombres) FROM Trabajador T INNER JOIN Persona P ON T.DNI=P.DNI WHERE Codigo=Cod_Trab_Entreg) AS "Entrega", (SELECT CONCAT(P.ApellidoP,' ',P.ApellidoM,' ',P.Nombres) FROM Trabajador T INNER JOIN Persona P ON T.DNI=P.DNI WHERE Codigo=Cod_Trab_Recib) AS "Recibe", Fecha, (SELECT AREA FROM AREA WHERE Id=IdArea) AS "Area", Nro_OM FROM NOTA_SALIDA NS ORDER BY Codigo;
 SELECT DISTINCT(Codigo), (SELECT CONCAT(P.ApellidoP,' ',P.ApellidoM,' ',P.Nombres) FROM Trabajador T INNER JOIN Persona P ON T.DNI=P.DNI WHERE Codigo=Cod_Trab_Entreg) AS "Entrega", (SELECT CONCAT(P.ApellidoP,' ',P.ApellidoM,' ',P.Nombres) FROM Trabajador T INNER JOIN Persona P ON T.DNI=P.DNI WHERE Codigo=Cod_Trab_Recib) AS "Recibe", Fecha, (SELECT AREA FROM AREA WHERE Id=IdArea) AS "Area", Nro_OM FROM NOTA_SALIDA ORDER BY Codigo;
 SELECT * FROM NOTA_SALIDA WHERE Codigo='17111717530';
 
