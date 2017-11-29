@@ -24,6 +24,7 @@ public class JD_Registrar_Trabajador extends javax.swing.JDialog {
         initComponents();
         setLocationRelativeTo(this);
         mostrarCodigo();
+        setLocationRelativeTo(this);
     }
     
     void mostrarCodigo()
@@ -298,9 +299,9 @@ public class JD_Registrar_Trabajador extends javax.swing.JDialog {
     void registrar()
     {   try
         {   st=con.createStatement();
-            st.executeUpdate("INSERT INTO Trabajador VALUES ('"+jTextField1.getText()+"','"+jTextField2.getText()+"',"
-                    + "(SELECT Id FROM AREA WHERE AREA='"+jTextField4.getText()+"'),"
+            st.executeUpdate("INSERT INTO Trabajador VALUES ('"+jTextField1.getText()+"','"+jTextField2.getText()+"',"                    
                     + "(SELECT Id FROM Puesto WHERE Puesto='"+jTextField3.getText()+"'),"
+                    + "(SELECT Id FROM AREA WHERE AREA='"+jTextField4.getText()+"'),"
                     + "'"+jTextField5.getText()+"');");
             JOptionPane.showMessageDialog(this, "Trabajador Registrado !");
             dispose();

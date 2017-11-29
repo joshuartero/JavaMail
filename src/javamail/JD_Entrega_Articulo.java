@@ -206,6 +206,9 @@ public class JD_Entrega_Articulo extends javax.swing.JDialog {
             }
         });
         jScrollPane1.setViewportView(jTable1);
+        if (jTable1.getColumnModel().getColumnCount() > 0) {
+            jTable1.getColumnModel().getColumn(0).setMaxWidth(150);
+        }
 
         jButton2.setText("Quitar");
         jButton2.addActionListener(new java.awt.event.ActionListener() {

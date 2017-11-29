@@ -13,9 +13,9 @@ public class MDI_Principal extends javax.swing.JFrame {
 //        this.setExtendedState(MAXIMIZED_BOTH);
         this.setLocationRelativeTo(this);
         
-        JIF_Lista_Trabajadores jiflt=new JIF_Lista_Trabajadores();
-        desktopPane.add(jiflt);
-        jiflt.setVisible(true);
+        JIF_Lista_Articulos jifla=new JIF_Lista_Articulos();
+        desktopPane.add(jifla);
+        jifla.setVisible(true);
     }
 
     @SuppressWarnings("unchecked")
@@ -32,12 +32,14 @@ public class MDI_Principal extends javax.swing.JFrame {
         jMenu8 = new javax.swing.JMenu();
         jMenu9 = new javax.swing.JMenu();
         jMenu1 = new javax.swing.JMenu();
+        jMenuItem2 = new javax.swing.JMenuItem();
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenu10 = new javax.swing.JMenu();
-        jMenuItem4 = new javax.swing.JMenuItem();
         jMenuItem5 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         jMenuItem3 = new javax.swing.JMenuItem();
+        jMenu11 = new javax.swing.JMenu();
+        jMenuItem4 = new javax.swing.JMenuItem();
         fileMenu = new javax.swing.JMenu();
         openMenuItem = new javax.swing.JMenuItem();
         saveMenuItem = new javax.swing.JMenuItem();
@@ -77,6 +79,14 @@ public class MDI_Principal extends javax.swing.JFrame {
 
         jMenu1.setText("Articulos");
 
+        jMenuItem2.setText("Lista");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem2);
+
         jMenuItem1.setText("Registro");
         jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -86,14 +96,6 @@ public class MDI_Principal extends javax.swing.JFrame {
         jMenu1.add(jMenuItem1);
 
         jMenu10.setText("Nota de Salida");
-
-        jMenuItem4.setText("Lista");
-        jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem4ActionPerformed(evt);
-            }
-        });
-        jMenu10.add(jMenuItem4);
 
         jMenuItem5.setText("Registrar");
         jMenuItem5.addActionListener(new java.awt.event.ActionListener() {
@@ -118,6 +120,18 @@ public class MDI_Principal extends javax.swing.JFrame {
         jMenu2.add(jMenuItem3);
 
         menuBar.add(jMenu2);
+
+        jMenu11.setText("Nota de Salida");
+
+        jMenuItem4.setText("Lista");
+        jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem4ActionPerformed(evt);
+            }
+        });
+        jMenu11.add(jMenuItem4);
+
+        menuBar.add(jMenu11);
 
         fileMenu.setMnemonic('f');
         fileMenu.setText("File");
@@ -223,6 +237,12 @@ public class MDI_Principal extends javax.swing.JFrame {
         desktopPane.add(jifea);
         jifea.setVisible(true);
     }//GEN-LAST:event_jMenuItem5ActionPerformed
+
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+        JIF_Lista_Articulos jifla=new JIF_Lista_Articulos();
+        desktopPane.add(jifla);
+        jifla.setVisible(true);
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
    
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -271,6 +291,7 @@ public class MDI_Principal extends javax.swing.JFrame {
     private javax.swing.JMenu helpMenu;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu10;
+    private javax.swing.JMenu jMenu11;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu4;
@@ -280,6 +301,7 @@ public class MDI_Principal extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu8;
     private javax.swing.JMenu jMenu9;
     private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
